@@ -12,22 +12,32 @@
 <body class="bg-gray-100 font-sans leading-normal tracking-normal">
 
     <div class="m-5 space-y-4">
-        <div class="text-2xl font-bold text-blue-800 mb-4 text-center">
-            CWU CONTRUCTION BUILDING FOR RSPTN, IRC AND WWTP | UNIVERSITAS LAMPUNG
+        <div class="flex flex-col md:flex-row justify-between items-center">
+            <div class="text-2xl font-bold text-blue-800 mb-4 text-center md:mb-0">
+                {{ $project[0]->project_name }}
+            </div>
+
+            <div class="flex space-x-4">
+                <img src="{{ asset('assets/img/adb.png') }}" alt="" class="w-10">
+                <img src="{{ asset('assets/img/unila.png') }}" alt="" class="w-10">
+                <img src="{{ asset('assets/img/ciriajasa.webp') }}" alt="" class="w-10">
+                <img src="{{ asset('assets/img/nindya.png') }}" alt="" class="w-10">
+            </div>
         </div>
 
+
         <div class="p-6 bg-white shadow rounded-lg">
-            <div class="flex justify-between items-center mb-4">
-                <div class="bg-green-500 p-2">
-                    PROGRESS MINGGU KE-9
+            <div class="flex justify-between items-center mb-4 bg-gray-500 text-white p-3">
+                <div>
+                    PROGRESS MINGGU KE-{{ $timline_this_week[0]->time_week }}
                 </div>
-                <div class="text-gray-700">
+                <div>
                     NOMOR : PMSC 009/LCWU-RSPTN HETI PROJECT/V/2024
                 </div>
             </div>
             <div class="mt-3 text-gray-700">
-                <div>Periode: Minggu 09</div>
-                <div>Tanggal: 28 April 2024 - 04 Mei 2024</div>
+                <div>Periode: Minggu {{ $timline_this_week[0]->time_week }}</div>
+                <div>Tanggal: {{ $timline_this_week[0]->time_start }} - {{ $timline_this_week[0]->time_end }}</div>
             </div>
         </div>
 
@@ -36,8 +46,8 @@
                 <div>
                     <table class="table-auto w-full border-collapse border border-white-200">
                         <thead>
-                            <tr class="bg-gray-500">
-                                <td colspan="3" class="text-center py-2">Waktu Pelaksanaan: 08 Maret 2023 s/d 30 Agustus 2025</td>
+                            <tr class="bg-gray-500 text-white">
+                                <td colspan="3" class="text-center py-2">Waktu Pelaksanaan: {{ $project[0]->project_start }} s/d {{ $project[0]->project_end }}</td>
                             </tr>
                             <tr>
                                 <th class="py-2 px-4 border">Kontrak</th>
@@ -47,21 +57,21 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td class="py-2 px-4 border">540 Hari Kalender</td>
-                                <td class="py-2 px-4 border">57 Hari</td>
-                                <td class="py-2 px-4 border">483 Hari</td>
+                                <td class="py-2 px-4 border">{{ $project[0]->project_day_limit }} Hari Kalender</td>
+                                <td class="py-2 px-4 border">{{ $timline_this_week[0]->time_day_usage }} Hari</td>
+                                <td class="py-2 px-4 border">{{ $project[0]->project_day_limit - $timline_this_week[0]->time_day_usage}} Hari</td>
                             </tr>
                             <tr>
-                                <td class="py-2 px-4 border">78 Minggu</td>
-                                <td class="py-2 px-4 border">9 Minggu</td>
-                                <td class="py-2 px-4 border">69 Minggu</td>
+                                <td class="py-2 px-4 border">{{ $project[0]->project_week_limit }} Minggu</td>
+                                <td class="py-2 px-4 border">{{ $timline_this_week[0]->time_week_usage }} Minggu</td>
+                                <td class="py-2 px-4 border">{{ $project[0]->project_week_limit - $timline_this_week[0]->time_week_usage}} Minggu</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
                 <div>
                     <table class="table-auto w-full border-collapse border border-white-200">
-                        <thead class="bg-gray-500">
+                        <thead class="bg-gray-500 text-white">
                             <tr>
                                 <td colspan="2" class="text-center py-2">Progress Kontrak Berdasarkan Kurva S</td>
                             </tr>
@@ -88,16 +98,16 @@
         <div class="p-6 bg-white shadow rounded-lg">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                    <div class="block mb-4 text-bold bg-gray-500 p-2">Grafik Progres Pekerjaan Semua Lokasi</div>
+                    <div class="block mb-4 text-bold bg-gray-500 text-white p-2">Grafik Progres Pekerjaan Semua Lokasi</div>
                     <canvas id="ctxBar1"></canvas>
                 </div>
                 <div>
-                    <div class="block mb-4 text-bold bg-gray-500 p-2">Grafik Progres Pekerjaan Tiap Gedung</div>
+                    <div class="block mb-4 text-bold bg-gray-500 text-white p-2">Grafik Progres Pekerjaan Tiap Gedung</div>
                     <canvas id="ctxBar2"></canvas>
                 </div>
             </div>
             <div class="mt-4">
-                <div class="block mb-4 text-bold bg-gray-500 p-2">Kurva Master Plan</div>
+                <div class="block mb-4 text-bold bg-gray-500 text-white p-2">Kurva Master Plan</div>
                 <canvas id="ctxLine"></canvas>
             </div>
         </div>
@@ -105,16 +115,17 @@
         <div class="p-6 bg-white shadow rounded-lg">
             <div class="overflow-x-auto">
                 <table class="table-auto w-full border-collapse border border-white-200">
-                    <thead class="bg-gray-500">
-                        <tr class="bg-gray-500">
-                            <th colspan="9" class="text-center py-2">MONITORING PROGRESS PEKERJAAN MINGGU 09 28 APRIL S/D 04 MEI 2024</th>
+                    <thead class="bg-gray-500 text-white">
+                        <tr class="bg-gray-500 text-white">
+                            <th colspan="9" class="text-center py-2">Monitoring Progress Pekerjaan Minggu 09 28 April
+                                S/d 04 Mei 2024</th>
                         </tr>
                         <tr>
-                            <th rowspan="2" class="py-2 px-4 border">URAIAN</th>
-                            <th colspan="3" class="text-center py-2 px-4 border">RENCANA KUMULATIF</th>
-                            <th colspan="3" class="text-center py-2 px-4 border">REALISASI KUMULATIF</th>
-                            <th rowspan="2" class="py-2 px-4 border">DEVIASI</th>
-                            <th rowspan="2" class="py-2 px-4 border">SISA PROGRES</th>
+                            <th rowspan="2" class="py-2 px-4 border">Uraian</th>
+                            <th colspan="3" class="text-center py-2 px-4 border">Rencana Kumulatif</th>
+                            <th colspan="3" class="text-center py-2 px-4 border">Realisasi Kumultif</th>
+                            <th rowspan="2" class="py-2 px-4 border">Deviasi</th>
+                            <th rowspan="2" class="py-2 px-4 border">Sisa Progress</th>
                         </tr>
                         <tr>
                             <th class="py-2 px-4 border">s/d Minggu Lalu</th>
@@ -165,14 +176,18 @@
 
             <div class="overflow-x-auto mt-4">
                 <table class="table-auto w-full border-collapse border border-white-200">
-                    <thead class="bg-gray-500">
+                    <thead class="bg-gray-500 text-white">
                         <tr>
-                            <th colspan="3" class="text-center py-2">RENCANA MINGGU DEPAN</th>
+                            <th class="text-center py-2 border" colspan="2">Rencana Minggu Depan</th>
+                            <th class="text-center py-2 border">Minggu 10</th>
                         </tr>
                         <tr>
-                            <th class="py-2 px-4 border">URAIAN</th>
-                            <th class="py-2 px-4 border">RENANA MINGGUAN</th>
-                            <th class="py-2 px-4 border">RENCANA KUMULATIF</th>
+                            <th class="text-center py-2 border" rowspan="2">Uraian</th>
+                            <th class="text-center py-2 border" colspan="2">Rencana Kontrak</th>
+                        </tr>
+                        <tr>
+                            <th class="text-center py-2 border">Rencana Mingguan</th>
+                            <th class="text-center py-2 border">Rencana Kumulatif</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -182,7 +197,7 @@
                             <td class="py-2 px-4 border">0.13%</td>
                         </tr>
                         <tr>
-                            <td class="py-2 px-4 border">RSPTN & IRC</td>
+                            <td class="py-2 px-4 border">RSPTN &amp; IRC</td>
                             <td class="py-2 px-4 border">0.02%</td>
                             <td class="py-2 px-4 border">0.13%</td>
                         </tr>
@@ -201,11 +216,12 @@
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             $("[data-fancybox]").fancybox({});
         });
 
@@ -218,12 +234,12 @@
             data: {
                 labels: ["M1", "M9"],
                 datasets: [{
-                    label: 'RENCANA KUMULATIF',
+                    label: 'Rencana Kumulatif',
                     backgroundColor: "gray",
                     data: [0.02, 0.12],
                     stack: 'Stack 0',
                 }, {
-                    label: 'REALISASI KUMULATIF',
+                    label: 'Realisasi Kumulatif',
                     backgroundColor: "green",
                     data: [0.20, 0.34],
                     stack: 'Stack 1'
@@ -260,12 +276,12 @@
             data: {
                 labels: ["RSPTN & IRC", "WWTP"],
                 datasets: [{
-                    label: 'RENCANA KUMULATIF',
+                    label: 'Rencana Kumulatif',
                     backgroundColor: "gray",
                     data: [0.02, 0.12],
                     stack: 'Stack 0',
                 }, {
-                    label: 'REALISASI KUMULATIF',
+                    label: 'Realisasi Kumulatif',
                     backgroundColor: "green",
                     data: [0.20, 0.34],
                     stack: 'Stack 1'
@@ -300,9 +316,8 @@
         new Chart(ctxLine, {
             type: "line",
             data: {
-                labels: ["Minggu 1", "Minggu 2", "Minggu 3", "Minggu 4", "Minggu 5", "Minggu 6", "Minggu 7", "Minggu 8", "Minggu 9"],
-                datasets: [
-                    {
+                labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+                datasets: [{
                         label: "Rencana Kumulatif",
                         data: [0, 0.01, 0.03, 0.05, 0.07, 0.09, 0.11, 0.12, 0.12],
                         borderColor: "gray",
