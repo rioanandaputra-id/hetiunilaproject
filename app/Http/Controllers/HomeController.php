@@ -256,7 +256,7 @@ class HomeController extends Controller
             "target_all" => $target_all,
         ];
 
-        return $data;
+        return view('home', compact('data'));
 
     }
 }

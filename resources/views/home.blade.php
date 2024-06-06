@@ -14,7 +14,7 @@
     <div class="m-5 space-y-4">
         <div class="flex flex-col md:flex-row justify-between items-center">
             <div class="text-2xl font-bold text-blue-800 mb-4 text-center md:mb-0">
-                {{ $project[0]->project_name }}
+                {{ $data['project_name'] }}
             </div>
 
             <div class="flex space-x-4">
@@ -29,15 +29,15 @@
         <div class="p-6 bg-white shadow rounded-lg">
             <div class="flex justify-between items-center mb-4 bg-gray-500 text-white p-3">
                 <div>
-                    PROGRESS MINGGU KE-{{ $timline_this_week[0]->time_week }}
+                    PROGRESS MINGGU KE-{{ $data['target_weekly']['current']['time_week'] }}
                 </div>
                 <div>
                     NOMOR : PMSC 009/LCWU-RSPTN HETI PROJECT/V/2024
                 </div>
             </div>
             <div class="mt-3 text-gray-700">
-                <div>Periode: Minggu {{ $timline_this_week[0]->time_week }}</div>
-                <div>Tanggal: {{ $timline_this_week[0]->time_start }} - {{ $timline_this_week[0]->time_end }}</div>
+                <div>Periode: Minggu {{ $data['target_weekly']['current']['time_week'] }}</div>
+                <div>Tanggal: {{ $data['target_weekly']['current']['time_start'] }} - {{ $data['target_weekly']['current']['time_start'] }}</div>
             </div>
         </div>
 
@@ -47,7 +47,7 @@
                     <table class="table-auto w-full border-collapse border border-white-200">
                         <thead>
                             <tr class="bg-gray-500 text-white">
-                                <td colspan="3" class="text-center py-2">Waktu Pelaksanaan: {{ $project[0]->project_start }} s/d {{ $project[0]->project_end }}</td>
+                                <td colspan="3" class="text-center py-2">Waktu Pelaksanaan: {{ $data['project_start'] }} s/d {{ $data['project_end'] }}</td>
                             </tr>
                             <tr>
                                 <th class="py-2 px-4 border">Kontrak</th>
@@ -57,14 +57,14 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td class="py-2 px-4 border">{{ $project[0]->project_day_limit }} Hari Kalender</td>
-                                <td class="py-2 px-4 border">{{ $timline_this_week[0]->time_day_usage }} Hari</td>
-                                <td class="py-2 px-4 border">{{ $project[0]->project_day_limit - $timline_this_week[0]->time_day_usage}} Hari</td>
+                                <td class="py-2 px-4 border">{{ $data['project_day'] }} Hari Kalender</td>
+                                <td class="py-2 px-4 border">{{ $data['project_day_usage'] }} Hari</td>
+                                <td class="py-2 px-4 border">{{ $data['project_day_limit'] }} Hari</td>
                             </tr>
                             <tr>
-                                <td class="py-2 px-4 border">{{ $project[0]->project_week_limit }} Minggu</td>
-                                <td class="py-2 px-4 border">{{ $timline_this_week[0]->time_week_usage }} Minggu</td>
-                                <td class="py-2 px-4 border">{{ $project[0]->project_week_limit - $timline_this_week[0]->time_week_usage}} Minggu</td>
+                                <td class="py-2 px-4 border">{{ $data['project_week'] }} Minggu</td>
+                                <td class="py-2 px-4 border">{{ $data['project_week_usage'] }} Minggu</td>
+                                <td class="py-2 px-4 border">{{ $data['project_week_limit'] }} Minggu</td>
                             </tr>
                         </tbody>
                     </table>
@@ -79,15 +79,15 @@
                         <tbody>
                             <tr>
                                 <td class="py-2 px-4 border">Rencana Kumulatif</td>
-                                <td class="py-2 px-4 border">0.12%</td>
+                                <td class="py-2 px-4 border">{{ $data['target_weekly']['current']['plan_kumulatif'] }}%</td>
                             </tr>
                             <tr>
                                 <td class="py-2 px-4 border">Realisasi Kumulatif</td>
-                                <td class="py-2 px-4 border">0.34%</td>
+                                <td class="py-2 px-4 border">{{ $data['target_weekly']['current']['real_kumulatif'] }}%</td>
                             </tr>
                             <tr>
                                 <td class="py-2 px-4 border">Deviasi</td>
-                                <td class="py-2 px-4 border">0.22%</td>
+                                <td class="py-2 px-4 border">{{ $data['target_weekly']['current']['deviasi_kumulatif'] }}%</td>
                             </tr>
                         </tbody>
                     </table>
@@ -117,8 +117,7 @@
                 <table class="table-auto w-full border-collapse border border-white-200">
                     <thead class="bg-gray-500 text-white">
                         <tr class="bg-gray-500 text-white">
-                            <th colspan="9" class="text-center py-2">Monitoring Progress Pekerjaan Minggu 09 28 April
-                                S/d 04 Mei 2024</th>
+                            <th colspan="9" class="text-center py-2">Monitoring Progress Pekerjaan Minggu {{ $data['target_weekly']['current']['time_week'] }} ( {{ $data['target_weekly']['current']['time_start'] }} s/d {{ $data['target_weekly']['current']['time_end'] }} )</th>
                         </tr>
                         <tr>
                             <th rowspan="2" class="py-2 px-4 border">Uraian</th>
