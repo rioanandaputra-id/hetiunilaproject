@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::controller(HomeController::class)
     ->group(function () {
-        Route::get('/', 'index')->name('index');
-        Route::get('/home', 'home')->name('home');
+        Route::get('/', 'home')->name('home');
+        Route::get('/json', 'index')->name('index');
+        Route::get('/admin', 'adminPannel')->name('adminPannel');
     });

@@ -273,4 +273,9 @@ class HomeController extends Controller
         $data = $this->index();
         return view('home', compact('data'));
     }
+
+    function adminPannel() {
+        $data = $this->index();
+        return view('adminPannel');
+    }
 }

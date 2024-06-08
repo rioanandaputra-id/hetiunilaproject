@@ -256,11 +256,7 @@
 
         function grafik_1() {
             const ctxBar1 = document.getElementById("ctxBar1").getContext("2d");
-
-            // Embed the target_weekly data as a JavaScript variable
             const targetWeekly = @json($data['target_weekly']);
-
-            // Extract data
             const labels = [`M${targetWeekly.last.time_week}`, `M${targetWeekly.current.time_week}`];
             const planKumulatif = [targetWeekly.last.plan_kumulatif, targetWeekly.current.plan_kumulatif];
             const realKumulatif = [targetWeekly.last.real_kumulatif, targetWeekly.current.real_kumulatif];
@@ -311,7 +307,6 @@
         function grafik_2() {
             const ctxBar2 = document.getElementById("ctxBar2").getContext("2d");
             const target = @json($data['target_weekly']['current']['target']);
-
             const labels = target.map(item => item.location_name);
             const planKumulatif = target.map(item => parseFloat(item.plan_kumulatif));
             const realKumulatif = target.map(item => parseFloat(item.real_kumulatif));
