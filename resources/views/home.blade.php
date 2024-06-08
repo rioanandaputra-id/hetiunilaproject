@@ -25,7 +25,6 @@
             </div>
         </div>
 
-
         <div class="p-6 bg-white shadow rounded-lg">
             <div class="flex justify-between items-center mb-4 bg-gray-500 text-white p-3">
                 <div>
@@ -37,7 +36,8 @@
             </div>
             <div class="mt-3 text-gray-700">
                 <div>Periode: Minggu {{ $data['target_weekly']['current']['time_week'] }}</div>
-                <div>Tanggal: {{ $data['target_weekly']['current']['time_start'] }} - {{ $data['target_weekly']['current']['time_start'] }}</div>
+                <div>Tanggal: {{ $data['target_weekly']['current']['time_start'] }} -
+                    {{ $data['target_weekly']['current']['time_start'] }}</div>
             </div>
         </div>
 
@@ -47,7 +47,8 @@
                     <table class="table-auto w-full border-collapse border border-white-200">
                         <thead>
                             <tr class="bg-gray-500 text-white">
-                                <td colspan="3" class="text-center py-2">Waktu Pelaksanaan: {{ $data['project_start'] }} s/d {{ $data['project_end'] }}</td>
+                                <td colspan="3" class="text-center py-2">Waktu Pelaksanaan:
+                                    {{ $data['project_start'] }} s/d {{ $data['project_end'] }}</td>
                             </tr>
                             <tr>
                                 <th class="py-2 px-4 border">Kontrak</th>
@@ -79,15 +80,18 @@
                         <tbody>
                             <tr>
                                 <td class="py-2 px-4 border">Rencana Kumulatif</td>
-                                <td class="py-2 px-4 border">{{ $data['target_weekly']['current']['plan_kumulatif'] }}%</td>
+                                <td class="py-2 px-4 border">{{ $data['target_weekly']['current']['plan_kumulatif'] }}%
+                                </td>
                             </tr>
                             <tr>
                                 <td class="py-2 px-4 border">Realisasi Kumulatif</td>
-                                <td class="py-2 px-4 border">{{ $data['target_weekly']['current']['real_kumulatif'] }}%</td>
+                                <td class="py-2 px-4 border">{{ $data['target_weekly']['current']['real_kumulatif'] }}%
+                                </td>
                             </tr>
                             <tr>
                                 <td class="py-2 px-4 border">Deviasi</td>
-                                <td class="py-2 px-4 border">{{ $data['target_weekly']['current']['deviasi_kumulatif'] }}%</td>
+                                <td class="py-2 px-4 border">
+                                    {{ $data['target_weekly']['current']['deviasi_kumulatif'] }}%</td>
                             </tr>
                         </tbody>
                     </table>
@@ -98,11 +102,13 @@
         <div class="p-6 bg-white shadow rounded-lg">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                    <div class="block mb-4 text-bold bg-gray-500 text-white p-2">Grafik Progres Pekerjaan Semua Lokasi</div>
+                    <div class="block mb-4 text-bold bg-gray-500 text-white p-2">Grafik Progres Pekerjaan Semua Lokasi
+                    </div>
                     <canvas id="ctxBar1"></canvas>
                 </div>
                 <div>
-                    <div class="block mb-4 text-bold bg-gray-500 text-white p-2">Grafik Progres Pekerjaan Tiap Gedung</div>
+                    <div class="block mb-4 text-bold bg-gray-500 text-white p-2">Grafik Progres Pekerjaan Tiap Gedung
+                    </div>
                     <canvas id="ctxBar2"></canvas>
                 </div>
             </div>
@@ -117,7 +123,10 @@
                 <table class="table-auto w-full border-collapse border border-white-200">
                     <thead class="bg-gray-500 text-white">
                         <tr class="bg-gray-500 text-white">
-                            <th colspan="9" class="text-center py-2">Monitoring Progress Pekerjaan Minggu {{ $data['target_weekly']['current']['time_week'] }} ( {{ $data['target_weekly']['current']['time_start'] }} s/d {{ $data['target_weekly']['current']['time_end'] }} )</th>
+                            <th colspan="9" class="text-center py-2">Monitoring Progress Pekerjaan Minggu
+                                {{ $data['target_weekly']['current']['time_week'] }} (
+                                {{ $data['target_weekly']['current']['time_start'] }} s/d
+                                {{ $data['target_weekly']['current']['time_end'] }} )</th>
                         </tr>
                         <tr>
                             <th rowspan="2" class="py-2 px-4 border">Uraian</th>
@@ -138,37 +147,48 @@
                     <tbody>
                         <tr>
                             <td class="py-2 px-4 border">SEMUA LOKASI</td>
-                            <td class="py-2 px-4 border">0.10%</td>
-                            <td class="py-2 px-4 border">0.20%</td>
-                            <td class="py-2 px-4 border">0.12%</td>
-                            <td class="py-2 px-4 border">0.27%</td>
-                            <td class="py-2 px-4 border">0.07%</td>
-                            <td class="py-2 px-4 border">0.34%</td>
-                            <td class="py-2 px-4 border">0.22%</td>
-                            <td class="py-2 px-4 border">99.66%</td>
+                            <td class="py-2 px-4 border">{{ $data['target_weekly']['last']['plan_kumulatif'] }}%</td>
+                            <td class="py-2 px-4 border">{{ $data['target_weekly']['current']['plan_kumulatif'] }}%
+                            </td>
+                            <td class="py-2 px-4 border">
+                                {{ $all_plan_kumulatif = $data['target_weekly']['current']['plan_kumulatif'] + $data['target_weekly']['last']['plan_kumulatif'] }}%
+                            </td>
+
+                            <td class="py-2 px-4 border">{{ $data['target_weekly']['last']['real_kumulatif'] }}%</td>
+                            <td class="py-2 px-4 border">{{ $data['target_weekly']['current']['real_kumulatif'] }}%
+                            </td>
+                            <td class="py-2 px-4 border">
+                                {{ $all_real_kumulatif = $data['target_weekly']['last']['real_kumulatif'] + $data['target_weekly']['current']['real_kumulatif'] }}%
+                            </td>
+
+                            <td class="py-2 px-4 border">{{ $all_real_kumulatif - $all_plan_kumulatif }}%</td>
+                            <td class="py-2 px-4 border">{{ 100 - $all_real_kumulatif }}%</td>
                         </tr>
-                        <tr>
-                            <td class="py-2 px-4 border">RSPTN & IRC</td>
-                            <td class="py-2 px-4 border">0.10%</td>
-                            <td class="py-2 px-4 border">0.20%</td>
-                            <td class="py-2 px-4 border">0.12%</td>
-                            <td class="py-2 px-4 border">0.27%</td>
-                            <td class="py-2 px-4 border">0.07%</td>
-                            <td class="py-2 px-4 border">0.34%</td>
-                            <td class="py-2 px-4 border">0.22%</td>
-                            <td class="py-2 px-4 border">99.66%</td>
-                        </tr>
-                        <tr>
-                            <td class="py-2 px-4 border">WWTP</td>
-                            <td class="py-2 px-4 border">0.00%</td>
-                            <td class="py-2 px-4 border">0.00%</td>
-                            <td class="py-2 px-4 border">0.00%</td>
-                            <td class="py-2 px-4 border">0.00%</td>
-                            <td class="py-2 px-4 border">0.00%</td>
-                            <td class="py-2 px-4 border">0.00%</td>
-                            <td class="py-2 px-4 border">0.00%</td>
-                            <td class="py-2 px-4 border">100.00%</td>
-                        </tr>
+
+                        @foreach ($data['target_weekly']['current']['target'] as $index => $target)
+                            <tr>
+                                <td class="py-2 px-4 border">{{ $target['location_name'] }}</td>
+                                <td class="py-2 px-4 border">
+                                    {{ $data['target_weekly']['last']['target'][$index]['plan_kumulatif'] }}%</td>
+                                <td class="py-2 px-4 border">
+                                    {{ $data['target_weekly']['current']['target'][$index]['plan_kumulatif'] }}%</td>
+                                <td class="py-2 px-4 border">
+                                    {{ $all_plan_kumulatif = $data['target_weekly']['current']['target'][$index]['plan_kumulatif'] + $data['target_weekly']['last']['target'][$index]['plan_kumulatif'] }}%
+                                </td>
+
+                                <td class="py-2 px-4 border">
+                                    {{ $data['target_weekly']['last']['target'][$index]['real_kumulatif'] }}%</td>
+                                <td class="py-2 px-4 border">
+                                    {{ $data['target_weekly']['current']['target'][$index]['real_kumulatif'] }}%</td>
+                                <td class="py-2 px-4 border">
+                                    {{ $all_real_kumulatif = $data['target_weekly']['current']['target'][$index]['real_kumulatif'] + $data['target_weekly']['last']['target'][$index]['real_kumulatif'] }}%
+                                </td>
+
+                                <td class="py-2 px-4 border">{{ $all_real_kumulatif - $all_plan_kumulatif }}%</td>
+                                <td class="py-2 px-4 border">{{ 100 - $all_real_kumulatif }}%</td>
+                            </tr>
+                        @endforeach
+
                     </tbody>
                 </table>
             </div>
@@ -178,7 +198,8 @@
                     <thead class="bg-gray-500 text-white">
                         <tr>
                             <th class="text-center py-2 border" colspan="2">Rencana Minggu Depan</th>
-                            <th class="text-center py-2 border">Minggu 10</th>
+                            <th class="text-center py-2 border">Minggu
+                                {{ $data['target_weekly']['next']['time_week'] }}</th>
                         </tr>
                         <tr>
                             <th class="text-center py-2 border" rowspan="2">Uraian</th>
@@ -192,19 +213,19 @@
                     <tbody>
                         <tr>
                             <td class="py-2 px-4 border">SEMUA LOKASI</td>
-                            <td class="py-2 px-4 border">0.02%</td>
-                            <td class="py-2 px-4 border">0.13%</td>
+                            <td class="py-2 px-4 border">{{ $data['target_weekly']['current']['plan_kumulatif'] }}%
+                            </td>
+                            <td class="py-2 px-4 border">{{ $data['target_weekly']['next']['plan_kumulatif'] }}%</td>
                         </tr>
-                        <tr>
-                            <td class="py-2 px-4 border">RSPTN &amp; IRC</td>
-                            <td class="py-2 px-4 border">0.02%</td>
-                            <td class="py-2 px-4 border">0.13%</td>
-                        </tr>
-                        <tr>
-                            <td class="py-2 px-4 border">WWTP</td>
-                            <td class="py-2 px-4 border">0.00%</td>
-                            <td class="py-2 px-4 border">0.00%</td>
-                        </tr>
+                        @foreach ($data['target_weekly']['current']['target'] as $index => $target)
+                            <tr>
+                                <td class="py-2 px-4 border">{{ $target['location_name'] }}</td>
+                                <td class="py-2 px-4 border">
+                                    {{ $data['target_weekly']['current']['target'][$index]['plan_kumulatif'] }}%</td>
+                                <td class="py-2 px-4 border">
+                                    {{ $data['target_weekly']['next']['target'][$index]['plan_kumulatif'] }}%</td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -222,139 +243,188 @@
     <script>
         $(document).ready(function() {
             $("[data-fancybox]").fancybox({});
+            grafik_1();
+            grafik_2();
+            grafik_3();
         });
 
-        const ctxBar1 = document.getElementById("ctxBar1").getContext("2d");
-        const ctxBar2 = document.getElementById("ctxBar2").getContext("2d");
-        const ctxLine = document.getElementById("ctxLine").getContext("2d");
+        function grafik_1() {
+            const ctxBar1 = document.getElementById("ctxBar1").getContext("2d");
 
-        new Chart(ctxBar1, {
-            type: "bar",
-            data: {
-                labels: ["M1", "M9"],
-                datasets: [{
-                    label: 'Rencana Kumulatif',
-                    backgroundColor: "gray",
-                    data: [0.02, 0.12],
-                    stack: 'Stack 0',
-                }, {
-                    label: 'Realisasi Kumulatif',
-                    backgroundColor: "green",
-                    data: [0.20, 0.34],
-                    stack: 'Stack 1'
-                }],
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                let label = context.dataset.label || '';
-                                if (label) {
-                                    label += ': ';
+            // Embed the target_weekly data as a JavaScript variable
+            const targetWeekly = @json($data['target_weekly']);
+
+            // Extract data
+            const labels = [`M${targetWeekly.last.time_week}`, `M${targetWeekly.current.time_week}`];
+            const planKumulatif = [targetWeekly.last.plan_kumulatif, targetWeekly.current.plan_kumulatif];
+            const realKumulatif = [targetWeekly.last.real_kumulatif, targetWeekly.current.real_kumulatif];
+
+            const chart = new Chart(ctxBar1, {
+                type: "bar",
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Rencana Kumulatif',
+                        backgroundColor: "gray",
+                        data: planKumulatif,
+                        stack: 'Stack 0',
+                    }, {
+                        label: 'Realisasi Kumulatif',
+                        backgroundColor: "green",
+                        data: realKumulatif,
+                        stack: 'Stack 1'
+                    }],
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.y !== null) {
+                                        label += context.parsed.y + '%';
+                                    }
+                                    return label;
                                 }
-                                if (context.parsed.y !== null) {
-                                    label += context.parsed.y + '%';
-                                }
-                                return label;
                             }
                         }
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                        },
                     },
                 },
-            },
-        });
+            });
+        }
 
-        new Chart(ctxBar2, {
-            type: "bar",
-            data: {
-                labels: ["RSPTN & IRC", "WWTP"],
-                datasets: [{
-                    label: 'Rencana Kumulatif',
-                    backgroundColor: "gray",
-                    data: [0.02, 0.12],
-                    stack: 'Stack 0',
-                }, {
-                    label: 'Realisasi Kumulatif',
-                    backgroundColor: "green",
-                    data: [0.20, 0.34],
-                    stack: 'Stack 1'
-                }],
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                let label = context.dataset.label || '';
-                                if (label) {
-                                    label += ': ';
+        function grafik_2() {
+            const ctxBar2 = document.getElementById("ctxBar2").getContext("2d");
+            const target = @json($data['target_weekly']['current']['target']);
+
+            const labels = target.map(item => item.location_name);
+            const planKumulatif = target.map(item => parseFloat(item.plan_kumulatif));
+            const realKumulatif = target.map(item => parseFloat(item.real_kumulatif));
+
+            new Chart(ctxBar2, {
+                type: "bar",
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Rencana Kumulatif',
+                        backgroundColor: "gray",
+                        data: planKumulatif,
+                        stack: 'Stack 0',
+                    }, {
+                        label: 'Realisasi Kumulatif',
+                        backgroundColor: "green",
+                        data: realKumulatif,
+                        stack: 'Stack 1'
+                    }],
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.y !== null) {
+                                        label += context.parsed.y + '%';
+                                    }
+                                    return label;
                                 }
-                                if (context.parsed.y !== null) {
-                                    label += context.parsed.y + '%';
-                                }
-                                return label;
                             }
                         }
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                        },
                     },
                 },
-            },
-        });
+            });
 
-        new Chart(ctxLine, {
-            type: "line",
-            data: {
-                labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-                datasets: [{
-                        label: "Rencana Kumulatif",
-                        data: [0, 0.01, 0.03, 0.05, 0.07, 0.09, 0.11, 0.12, 0.12],
-                        borderColor: "gray",
-                        fill: false,
-                    },
-                    {
-                        label: "Realisasi Kumulatif",
-                        data: [0, 0.02, 0.04, 0.06, 0.10, 0.14, 0.20, 0.30, 0.34],
-                        borderColor: "green",
-                        fill: false,
+        }
+
+        function grafik_3() {
+
+            const ctxLine = document.getElementById("ctxLine").getContext("2d");
+            const targetAll = @json($data['target_all']);
+            const planKumulatif = targetAll.map(item => item.plan_kumulatif !== null ? parseFloat(item.plan_kumulatif) : 0);
+            const weeks = targetAll.map(item => item.time_week);
+
+            function getRealKumulatif() {
+                let realKumulatif = [];
+                let isActiveFound = false;
+
+                for (const item of targetAll) {
+                    if (item.is_active === 1) {
+                        isActiveFound = true;
                     }
-                ],
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                let label = context.dataset.label || '';
-                                if (label) {
-                                    label += ': ';
+                    if (isActiveFound && item.time_week > targetAll.find(i => i.is_active === 1).time_week) {
+                        break;
+                    }
+                    realKumulatif.push(item.real_kumulatif !== null ? parseFloat(item.real_kumulatif) : 0);
+                }
+
+                return realKumulatif;
+            }
+
+            const realKumulatif = getRealKumulatif();
+
+            const chart = new Chart(ctxLine, {
+                type: "line",
+                data: {
+                    labels: weeks,
+                    datasets: [{
+                            label: "Rencana Kumulatif",
+                            data: planKumulatif,
+                            borderColor: "gray",
+                            fill: false,
+                        },
+                        {
+                            label: "Realisasi Kumulatif",
+                            data: realKumulatif.concat(new Array(planKumulatif.length - realKumulatif.length)
+                                .fill(null)),
+                            borderColor: "orange",
+                            fill: false,
+                        }
+                    ],
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.y !== null) {
+                                        label += context.parsed.y + '%';
+                                    }
+                                    return label;
                                 }
-                                if (context.parsed.y !== null) {
-                                    label += context.parsed.y + '%';
-                                }
-                                return label;
                             }
                         }
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                        },
                     },
                 },
-            },
-        });
+            });
+        }
     </script>
 </body>
 

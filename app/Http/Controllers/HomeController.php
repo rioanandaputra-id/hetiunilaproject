@@ -167,7 +167,8 @@ class HomeController extends Controller
                 "location_id" => $tc->location_id,
                 "location_name" => $tc->location_name,
                 "plan_kumulatif" => $tc->plan_kumulatif,
-                "real_kumulati" => $tc->real_kumulatif,
+                "real_kumulatif" => $tc->real_kumulatif,
+                "deviasi_kumulatif" => round($tc->real_kumulatif - $tc->plan_kumulatif, 2),
             ];
 
             $data_target_current_plan_kumulatif_sum += $tc->plan_kumulatif;
@@ -184,7 +185,8 @@ class HomeController extends Controller
                 "location_id" => $tc->location_id,
                 "location_name" => $tc->location_name,
                 "plan_kumulatif" => $tc->plan_kumulatif,
-                "real_kumulati" => $tc->real_kumulatif,
+                "real_kumulatif" => $tc->real_kumulatif,
+                "deviasi_kumulatif" => round($tc->real_kumulatif - $tc->plan_kumulatif, 2),
             ];
 
             $data_target_last_plan_kumulatif_sum += $tc->plan_kumulatif;
@@ -200,7 +202,8 @@ class HomeController extends Controller
                 "location_id" => $tc->location_id,
                 "location_name" => $tc->location_name,
                 "plan_kumulatif" => $tc->plan_kumulatif,
-                "real_kumulati" => $tc->real_kumulatif,
+                "real_kumulatif" => $tc->real_kumulatif,
+                "deviasi_kumulatif" => round($tc->real_kumulatif - $tc->plan_kumulatif, 2),
             ];
 
             $data_target_next_plan_kumulatif_sum += $tc->plan_kumulatif;
@@ -256,7 +259,11 @@ class HomeController extends Controller
             "target_all" => $target_all,
         ];
 
-        return view('home', compact('data'));
+        return $data;
+    }
 
+    function home() {
+        $data = $this->index();
+        return view('home', compact('data'));
     }
 }
