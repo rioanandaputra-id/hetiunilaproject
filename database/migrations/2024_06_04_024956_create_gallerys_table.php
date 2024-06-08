@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('gallerys', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('target_id');
+            $table->foreignId('timeline_id')->index()->constrained();
             $table->text('gallery_image');
             $table->text('gallery_desc');
             $table->timestamps();

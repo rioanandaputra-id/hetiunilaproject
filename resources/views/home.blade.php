@@ -13,31 +13,25 @@
 
     <div class="m-5 space-y-4">
         <div class="flex flex-col md:flex-row justify-between items-center">
-            <div class="text-2xl font-bold text-blue-800 mb-4 text-center md:mb-0">
+            <div class="text-2xl font-bold text-blue-800 mb-4 text-center md:mb-0 rounded-lg">
                 {{ $data['project_name'] }}
             </div>
 
             <div class="flex space-x-4">
-                <img src="{{ asset('assets/img/adb.png') }}" alt="" class="w-10">
-                <img src="{{ asset('assets/img/unila.png') }}" alt="" class="w-10">
-                <img src="{{ asset('assets/img/ciriajasa.webp') }}" alt="" class="w-10">
-                <img src="{{ asset('assets/img/nindya.png') }}" alt="" class="w-10">
+                <img src="{{ asset('assets/logo/'. $data['project_logo']) }}" alt="" width="250px" height="auto">
             </div>
         </div>
 
         <div class="p-6 bg-white shadow rounded-lg">
-            <div class="flex justify-between items-center mb-4 bg-gray-500 text-white p-3">
+            <div class="flex justify-between items-center mb-4 bg-gray-500 text-white p-3 rounded-lg">
                 <div>
                     PROGRESS MINGGU KE-{{ $data['target_weekly']['current']['time_week'] }}
-                </div>
-                <div>
-                    NOMOR : PMSC 009/LCWU-RSPTN HETI PROJECT/V/2024
                 </div>
             </div>
             <div class="mt-3 text-gray-700">
                 <div>Periode: Minggu {{ $data['target_weekly']['current']['time_week'] }}</div>
-                <div>Tanggal: {{ $data['target_weekly']['current']['time_start'] }} -
-                    {{ $data['target_weekly']['current']['time_start'] }}</div>
+                <div>Tanggal: {{ tanggal($data['target_weekly']['current']['time_start']) }} s/d
+                    {{ tanggal($data['target_weekly']['current']['time_end']) }}</div>
             </div>
         </div>
 
@@ -48,7 +42,7 @@
                         <thead>
                             <tr class="bg-gray-500 text-white">
                                 <td colspan="3" class="text-center py-2">Waktu Pelaksanaan:
-                                    {{ $data['project_start'] }} s/d {{ $data['project_end'] }}</td>
+                                    {{ tanggal($data['project_start']) }} s/d {{ tanggal($data['project_end']) }}</td>
                             </tr>
                             <tr>
                                 <th class="py-2 px-4 border">Kontrak</th>
@@ -102,18 +96,18 @@
         <div class="p-6 bg-white shadow rounded-lg">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                    <div class="block mb-4 text-bold bg-gray-500 text-white p-2">Grafik Progres Pekerjaan Semua Lokasi
+                    <div class="block mb-4 text-bold bg-gray-500 text-white p-2 rounded-lg">Grafik Progres Pekerjaan Semua Lokasi
                     </div>
                     <canvas id="ctxBar1"></canvas>
                 </div>
                 <div>
-                    <div class="block mb-4 text-bold bg-gray-500 text-white p-2">Grafik Progres Pekerjaan Tiap Gedung
+                    <div class="block mb-4 text-bold bg-gray-500 text-white p-2 rounded-lg">Grafik Progres Pekerjaan Tiap Gedung
                     </div>
                     <canvas id="ctxBar2"></canvas>
                 </div>
             </div>
             <div class="mt-4">
-                <div class="block mb-4 text-bold bg-gray-500 text-white p-2">Kurva Master Plan</div>
+                <div class="block mb-4 text-bold bg-gray-500 text-white p-2 rounded-lg">Kurva Master Plan</div>
                 <canvas id="ctxLine"></canvas>
             </div>
         </div>
@@ -123,10 +117,9 @@
                 <table class="table-auto w-full border-collapse border border-white-200">
                     <thead class="bg-gray-500 text-white">
                         <tr class="bg-gray-500 text-white">
-                            <th colspan="9" class="text-center py-2">Monitoring Progress Pekerjaan Minggu
-                                {{ $data['target_weekly']['current']['time_week'] }} (
-                                {{ $data['target_weekly']['current']['time_start'] }} s/d
-                                {{ $data['target_weekly']['current']['time_end'] }} )</th>
+                            <th colspan="9" class="text-center py-2">Monitoring Progress Pekerjaan Minggu ke-{{ $data['target_weekly']['current']['time_week'] }} :
+                                {{ tanggal($data['target_weekly']['current']['time_start']) }} s/d
+                                {{ tanggal($data['target_weekly']['current']['time_end']) }} </th>
                         </tr>
                         <tr>
                             <th rowspan="2" class="py-2 px-4 border">Uraian</th>
@@ -231,8 +224,21 @@
             </div>
         </div>
 
+        <div class="p-6 bg-white shadow rounded-lg">
+            <div class="block mb-4 text-bold bg-gray-500 text-white p-3 rounded-lg">PROGRES PEKERJAAN (PHOTO) MINGGU {{ $data['target_weekly']['current']['time_week'] }}</div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                @foreach ($data['gallery'] as $gl)
+                <a href="{{ asset('assets/gallery/'. $gl->gallery_image) }}" data-fancybox="gallery" class="block" data-caption="{{ $gl->gallery_desc }}">
+                    <img src="{{ asset('assets/gallery/'. $gl->gallery_image) }}" alt="{{ $gl->gallery_desc }}" class="w-full h-auto shadow-md">
+                    <figcaption class="bg-gray-200 p-2">{{ $gl->gallery_desc }}</figcaption>
+                    </a>
+                @endforeach
+            </div>
+        </div>
+
+
         <div class="text-gray-700 mt-4">
-            PROJECT MANAGMENT AND SUPERVISION CONSULTANT | PT. CIRIJASA MANDIRI | CONTRACT NO. 6919/UN26/LK.032023
+            PROJECT MANAGMENT AND SUPERVISION CONSULTANT | PT. CIRIJASA MANDIRI | CONTRACT NO. {{  $data['project_number'] }}
         </div>
     </div>
 

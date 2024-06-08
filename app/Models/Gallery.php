@@ -6,16 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Project extends Model
+class Gallery extends Model
 {
     use HasFactory, SoftDeletes;
-    protected $table = 'projects';
+    protected $table = 'gallerys';
     protected $fillable = [
-        'project_name',
-        'project_start',
-        'project_end',
-        'project_day',
-        'project_week',
-        'project_number',
+        'timeline_id',
+        'gallery_image',
+        'gallery_desc',
     ];
 }

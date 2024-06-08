@@ -12,7 +12,9 @@ class HomeController extends Controller
         $project = \DB::select("
             SELECT
                 pj.id,
+                pj.project_logo,
                 pj.project_name,
+                pj.project_number,
                 pj.project_start,
                 pj.project_end,
                 pj.project_day AS project_day,
@@ -158,6 +160,8 @@ class HomeController extends Controller
                 WHERE project_id = ? AND deleted_at IS NULL
         ", [$project[0]->id]);
 
+        $gallery = \DB::select("SELECT * FROM gallerys WHERE deleted_at IS NULL AND timeline_id = ? ORDER BY created_at ASC", [$timeline_current[0]->id]);
+
         $data_target_current = [];
         $data_target_current_plan_kumulatif_sum = 0;
         $data_target_current_real_kumulatif_sum = 0;
@@ -212,7 +216,9 @@ class HomeController extends Controller
 
         $data = [
             "id" => $project[0]->id ?? null,
+            "project_logo" => $project[0]->project_logo ?? null,
             "project_name" => $project[0]->project_name ?? null,
+            "project_number" => $project[0]->project_number ?? null,
             "project_start" => $project[0]->project_start ?? null,
             "project_end" => $project[0]->project_end ?? null,
             "project_day" => $project[0]->project_day ?? null,
@@ -257,6 +263,7 @@ class HomeController extends Controller
                 ],
             ],
             "target_all" => $target_all,
+            "gallery" => $gallery,
         ];
 
         return $data;

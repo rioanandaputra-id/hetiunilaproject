@@ -8,6 +8,7 @@ use Illuminate\Database\Seeder;
 use App\Models\Project;
 use App\Models\Location;
 use App\Models\Target;
+use App\Models\Gallery;
 
 class ProjectSeeder extends Seeder
 {
@@ -19,11 +20,13 @@ class ProjectSeeder extends Seeder
         $projects = [
             [
                 'id' => 1,
+                'project_logo' => 'default.png',
                 'project_name' => 'CWU CONSTRUCTION BUILDING FOR RSPTN, IRC AND WWTP | UNIVERSITAS LAMPUNG',
                 'project_start' => '2024-03-08',
                 'project_end' => '2025-08-30',
                 'project_day' => 540,
                 'project_week' => 78,
+                'project_number' => '6919/UN26/LK.032023',
             ]
         ];
 
@@ -215,6 +218,16 @@ class ProjectSeeder extends Seeder
             ],
         ];
 
+
+        $gallerys = [
+            [
+                'id' => 1,
+                'timeline_id' => 5,
+                'gallery_image' => 'default.png',
+                'gallery_desc' => 'bla bla bla',
+            ]
+        ];
+
         // Project::Truncate();
         Project::Insert($projects);
 
@@ -226,5 +239,8 @@ class ProjectSeeder extends Seeder
 
         // Target::Truncate();
         Target::Insert($targets);
+
+        // Gallery::Truncate();
+        Gallery::Insert($gallerys);
     }
 }
