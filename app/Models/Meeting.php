@@ -18,7 +18,8 @@ class Meeting extends Model
         'meeting_agenda_en',
     ];
 
-    public function galleries()
+
+    public function meetingGallery()
     {
         return $this->hasMany(MeetingGallery::class);
     }

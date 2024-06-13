@@ -19,7 +19,7 @@
                 <img src="{{ asset('assets/logo/default.PNG') }}" alt="Logo" class="h-10">
             </div>
             <nav class="flex space-x-6">
-                <a href="https://unilaprojectheti.id/" class="text-orange-500 font-semibold">BERANDA</a>
+                <a href="/" class="text-orange-500 font-semibold">BERANDA</a>
                 <div class="relative">
                     <button class="text-gray-700">MONITORING</button>
                     <div class="absolute mt-2 w-48 bg-white shadow-lg rounded hidden">
@@ -27,8 +27,8 @@
                         <a href="/meetings" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">PMSC</a>
                     </div>
                 </div>
-                <a href="https://unilaprojectheti.id/about" class="text-gray-700">TENTANG</a>
-                <a href="https://unilaprojectheti.id/contact" class="text-gray-700">KONTAK</a>
+                <a href="/about" class="text-gray-700">TENTANG</a>
+                <a href="/contact" class="text-gray-700">KONTAK</a>
             </nav>
         </div>
     </header>

@@ -1,16 +1,33 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Meeting;
+use App\Models\Timeline;
 use App\Models\MeetingGallery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class MeetingController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $meetings = Meeting::with('galleries')->get();
+        $query = Meeting::query();
+
+        if ($request->has('date')) {
+            $query->whereDate('meeting_date', $request->date);
+        }
+
+        if ($request->has('week')) {
+            $week = $request->week;
+            $timeline = Timeline::where('time_week', $week)->first();
+            if ($timeline) {
+                $query->whereBetween('meeting_date', [$timeline->time_start, $timeline->time_end]);
+            }
+        }
+
+        $meetings = $query->with('meetingGallery')->get();
+
         return view('meetings.index', compact('meetings'));
     }
 
@@ -21,35 +38,19 @@ class MeetingController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'project_id' => 'required',
-            'meeting_date' => 'required|date',
-            'meeting_location' => 'required|string|max:255',
-            'meeting_agenda' => 'required|string|max:255',
-            'meeting_agenda_en' => 'required|string|max:255',
-            'gallery_images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'descriptions.*' => 'nullable|string|max:255',
-        ]);
-
         $meeting = Meeting::create($request->all());
 
         if ($request->hasFile('gallery_images')) {
-            foreach ($request->file('gallery_images') as $index => $image) {
-                $path = $image->store('public/gallery_images');
-                MeetingGallery::create([
-                    'meeting_id' => $meeting->id,
+            foreach ($request->file('gallery_images') as $image) {
+                $path = $image->store('public/meeting_galleries');
+                $meeting->meetingGallery()->create([
                     'gallery_image' => $path,
-                    'gallery_desc' => $request->descriptions[$index] ?? '', // Add a field for description if needed
+                    'gallery_desc' => $request->gallery_desc,
                 ]);
             }
         }
 
         return redirect()->route('meetings.index');
-    }
-
-    public function show(Meeting $meeting)
-    {
-        return view('meetings.show', compact('meeting'));
     }
 
     public function edit(Meeting $meeting)
@@ -59,24 +60,14 @@ class MeetingController extends Controller
 
     public function update(Request $request, Meeting $meeting)
     {
-        $request->validate([
-            'project_id' => 'required',
-            'meeting_date' => 'required|date',
-            'meeting_location' => 'required|string|max:255',
-            'meeting_agenda' => 'required|string|max:255',
-            'meeting_agenda_en' => 'required|string|max:255',
-            'gallery_images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
-
         $meeting->update($request->all());
 
         if ($request->hasFile('gallery_images')) {
             foreach ($request->file('gallery_images') as $image) {
-                $path = $image->store('public/gallery_images');
-                MeetingGallery::create([
-                    'meeting_id' => $meeting->id,
+                $path = $image->store('public/meeting_galleries');
+                $meeting->meetingGallery()->create([
                     'gallery_image' => $path,
-                    'gallery_desc' => '', // Add a field for description if needed
+                    'gallery_desc' => $request->gallery_desc,
                 ]);
             }
         }
@@ -88,5 +79,11 @@ class MeetingController extends Controller
     {
         $meeting->delete();
         return redirect()->route('meetings.index');
+    }
+
+    public function show(Meeting $meeting)
+    {
+        $meeting->load('meetingGallery');
+        return view('meetings.show', compact('meeting'));
     }
 }

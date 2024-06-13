@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('project_id')->index()->constrained();
             $table->string('location_name');
+            $table->decimal('location_percent', 10, 2)->default(0.00);
             $table->timestamps();
             $table->softDeletes();
         });
