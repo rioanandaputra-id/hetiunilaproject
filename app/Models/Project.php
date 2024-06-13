@@ -18,4 +18,9 @@ class Project extends Model
         'project_week',
         'project_number',
     ];
+
+    public function timelines()
+    {
+        return $this->hasMany(Timeline::class);
+    }
 }

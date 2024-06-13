@@ -219,7 +219,7 @@ class ProjectSeeder extends Seeder
         ];
 
 
-        $gallerys = [
+        $galleries = [
             [
                 'id' => 1,
                 'timeline_id' => 5,
@@ -241,6 +241,6 @@ class ProjectSeeder extends Seeder
         Target::Insert($targets);
 
         // Gallery::Truncate();
-        Gallery::Insert($gallerys);
+        Gallery::Insert($galleries);
     }
 }

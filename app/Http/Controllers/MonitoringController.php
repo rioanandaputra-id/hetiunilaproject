@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class MonitoringController extends Controller
 {
-    function index()
+  function index()
     {
 
         $project = \DB::select("
@@ -54,7 +54,7 @@ class HomeController extends Controller
                 AND tm.deleted_at IS NULL
         ", [$project[0]->id]);
 
-        $timeline_last = \DB::select("
+        $timeline_last1 = \DB::select("
             SELECT
                 tm.id,
                 tm.project_id,
@@ -69,6 +69,22 @@ class HomeController extends Controller
                 AND tm.time_week = ?
                 AND tm.deleted_at IS NULL
         ", [$project[0]->id, ($timeline_current[0]->time_week - 1)]);
+
+        $timeline_last2 = \DB::select("
+            SELECT
+                tm.id,
+                tm.project_id,
+                tm.time_week,
+                tm.time_day,
+                tm.time_start,
+                tm.time_end
+            FROM
+                timelines AS tm
+            WHERE
+                tm.project_id = ?
+                AND tm.time_week = ?
+                AND tm.deleted_at IS NULL
+        ", [$project[0]->id, ($timeline_current[0]->time_week - 2)]);
 
         $timeline_next = \DB::select("
             SELECT
@@ -106,7 +122,7 @@ class HomeController extends Controller
                 AND tg.timeline_id = ?
         ", [$project[0]->id, $timeline_current[0]->id]);
 
-        $target_last = \DB::select("
+        $target_last1 = \DB::select("
             SELECT
                 tg.id,
                 tg.project_id,
@@ -123,7 +139,26 @@ class HomeController extends Controller
                 tg.project_id = ?
                 AND tg.deleted_at IS NULL
                 AND tg.timeline_id = ?
-        ", [$project[0]->id, $timeline_last[0]->id]);
+        ", [$project[0]->id, $timeline_last1[0]->id]);
+
+        $target_last2 = \DB::select("
+            SELECT
+                tg.id,
+                tg.project_id,
+                tg.location_id,
+                tg.timeline_id,
+                locc.location_name,
+                tg.plan_kumulatif,
+                tg.real_kumulatif
+            FROM
+                targets AS tg
+                JOIN locations AS locc ON tg.location_id = locc.id
+                AND tg.deleted_at IS NULL
+            WHERE
+                tg.project_id = ?
+                AND tg.deleted_at IS NULL
+                AND tg.timeline_id = ?
+        ", [$project[0]->id, $timeline_last2[0]->id]);
 
         $target_next = \DB::select("
             SELECT
@@ -160,7 +195,7 @@ class HomeController extends Controller
                 WHERE project_id = ? AND deleted_at IS NULL
         ", [$project[0]->id]);
 
-        $gallery = \DB::select("SELECT * FROM gallerys WHERE deleted_at IS NULL AND timeline_id = ? ORDER BY created_at ASC", [$timeline_current[0]->id]);
+        $gallery = \DB::select("SELECT * FROM galleries WHERE deleted_at IS NULL AND timeline_id = ? ORDER BY created_at ASC", [$timeline_current[0]->id]);
 
         $data_target_current = [];
         $data_target_current_plan_kumulatif_sum = 0;
@@ -180,11 +215,11 @@ class HomeController extends Controller
         }
 
 
-        $data_target_last = [];
-        $data_target_last_plan_kumulatif_sum = 0;
-        $data_target_last_real_kumulatif_sum = 0;
-        foreach($target_last as $tc){
-            $data_target_last[] = [
+        $data_target_last1 = [];
+        $data_target_last1_plan_kumulatif_sum = 0;
+        $data_target_last1_real_kumulatif_sum = 0;
+        foreach($target_last1 as $tc){
+            $data_target_last1[] = [
                 "id" => $tc->id,
                 "location_id" => $tc->location_id,
                 "location_name" => $tc->location_name,
@@ -193,8 +228,25 @@ class HomeController extends Controller
                 "deviasi_kumulatif" => round($tc->real_kumulatif - $tc->plan_kumulatif, 2),
             ];
 
-            $data_target_last_plan_kumulatif_sum += $tc->plan_kumulatif;
-            $data_target_last_real_kumulatif_sum += $tc->real_kumulatif;
+            $data_target_last1_plan_kumulatif_sum += $tc->plan_kumulatif;
+            $data_target_last1_real_kumulatif_sum += $tc->real_kumulatif;
+        }
+
+        $data_target_last2 = [];
+        $data_target_last2_plan_kumulatif_sum = 0;
+        $data_target_last2_real_kumulatif_sum = 0;
+        foreach($target_last2 as $tc){
+            $data_target_last2[] = [
+                "id" => $tc->id,
+                "location_id" => $tc->location_id,
+                "location_name" => $tc->location_name,
+                "plan_kumulatif" => $tc->plan_kumulatif,
+                "real_kumulatif" => $tc->real_kumulatif,
+                "deviasi_kumulatif" => round($tc->real_kumulatif - $tc->plan_kumulatif, 2),
+            ];
+
+            $data_target_last2_plan_kumulatif_sum += $tc->plan_kumulatif;
+            $data_target_last2_real_kumulatif_sum += $tc->real_kumulatif;
         }
 
         $data_target_next = [];
@@ -239,16 +291,27 @@ class HomeController extends Controller
                     "deviasi_kumulatif" => round($data_target_current_real_kumulatif_sum - $data_target_current_plan_kumulatif_sum, 2),
                     "target" => $data_target_current,
                 ],
-                "last" => [
-                    "id" => $timeline_last[0]->id ?? null,
-                    "time_week" => $timeline_last[0]->time_week ?? null,
-                    "time_day" => $timeline_last[0]->time_day ?? null,
-                    "time_start" => $timeline_last[0]->time_start ?? null,
-                    "time_end" => $timeline_last[0]->time_end ?? null,
-                    "plan_kumulatif" => $data_target_last_plan_kumulatif_sum,
-                    "real_kumulatif" => $data_target_last_real_kumulatif_sum,
-                    "deviasi_kumulatif" => round($data_target_last_real_kumulatif_sum - $data_target_last_plan_kumulatif_sum, 2),
-                    "target" => $data_target_last,
+                "last1" => [
+                    "id" => $timeline_last1[0]->id ?? null,
+                    "time_week" => $timeline_last1[0]->time_week ?? null,
+                    "time_day" => $timeline_last1[0]->time_day ?? null,
+                    "time_start" => $timeline_last1[0]->time_start ?? null,
+                    "time_end" => $timeline_last1[0]->time_end ?? null,
+                    "plan_kumulatif" => $data_target_last1_plan_kumulatif_sum,
+                    "real_kumulatif" => $data_target_last1_real_kumulatif_sum,
+                    "deviasi_kumulatif" => round($data_target_last1_real_kumulatif_sum - $data_target_last1_plan_kumulatif_sum, 2),
+                    "target" => $data_target_last1,
+                ],
+                "last2" => [
+                    "id" => $timeline_last2[0]->id ?? null,
+                    "time_week" => $timeline_last2[0]->time_week ?? null,
+                    "time_day" => $timeline_last2[0]->time_day ?? null,
+                    "time_start" => $timeline_last2[0]->time_start ?? null,
+                    "time_end" => $timeline_last2[0]->time_end ?? null,
+                    "plan_kumulatif" => $data_target_last2_plan_kumulatif_sum,
+                    "real_kumulatif" => $data_target_last2_real_kumulatif_sum,
+                    "deviasi_kumulatif" => round($data_target_last2_real_kumulatif_sum - $data_target_last2_plan_kumulatif_sum, 2),
+                    "target" => $data_target_last2,
                 ],
                 "next" => [
                     "id" => $timeline_next[0]->id ?? null,
@@ -269,13 +332,8 @@ class HomeController extends Controller
         return $data;
     }
 
-    function home() {
+    function monitoring() {
         $data = $this->index();
-        return view('home', compact('data'));
-    }
-
-    function adminPannel() {
-        $data = $this->index();
-        return view('adminPannel');
+        return view('monitorings.index', compact('data'));
     }
 }

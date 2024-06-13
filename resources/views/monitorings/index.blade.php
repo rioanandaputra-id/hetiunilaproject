@@ -1,24 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RSPTN UNILA</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
-</head>
-
-<body class="bg-gray-100 font-sans leading-normal tracking-normal">
-
+@extends('template')
+@section('content')
     <div class="m-5 space-y-4">
         <div class="flex flex-col md:flex-row justify-between items-center">
             <div class="text-2xl font-bold text-blue-800 mb-4 text-center md:mb-0 rounded-lg">
                 {{ $data['project_name'] }}
-            </div>
-
-            <div class="flex space-x-4">
-                <img src="{{ asset('assets/logo/'. $data['project_logo']) }}" alt="" width="250px" height="auto">
             </div>
         </div>
 
@@ -96,12 +81,14 @@
         <div class="p-6 bg-white shadow rounded-lg">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                    <div class="block mb-4 text-bold bg-gray-500 text-white p-2 rounded-lg">Grafik Progres Pekerjaan Semua Lokasi
+                    <div class="block mb-4 text-bold bg-gray-500 text-white p-2 rounded-lg">Grafik Progres Pekerjaan Semua
+                        Lokasi
                     </div>
                     <canvas id="ctxBar1"></canvas>
                 </div>
                 <div>
-                    <div class="block mb-4 text-bold bg-gray-500 text-white p-2 rounded-lg">Grafik Progres Pekerjaan Tiap Gedung
+                    <div class="block mb-4 text-bold bg-gray-500 text-white p-2 rounded-lg">Grafik Progres Pekerjaan Tiap
+                        Gedung
                     </div>
                     <canvas id="ctxBar2"></canvas>
                 </div>
@@ -117,7 +104,8 @@
                 <table class="table-auto w-full border-collapse border border-white-200">
                     <thead class="bg-gray-500 text-white">
                         <tr class="bg-gray-500 text-white">
-                            <th colspan="9" class="text-center py-2">Monitoring Progress Pekerjaan Minggu ke-{{ $data['target_weekly']['current']['time_week'] }} :
+                            <th colspan="9" class="text-center py-2">Monitoring Progress Pekerjaan Minggu
+                                ke-{{ $data['target_weekly']['current']['time_week'] }} :
                                 {{ tanggal($data['target_weekly']['current']['time_start']) }} s/d
                                 {{ tanggal($data['target_weekly']['current']['time_end']) }} </th>
                         </tr>
@@ -140,18 +128,18 @@
                     <tbody>
                         <tr>
                             <td class="py-2 px-4 border">SEMUA LOKASI</td>
-                            <td class="py-2 px-4 border">{{ $data['target_weekly']['last']['plan_kumulatif'] }}%</td>
+                            <td class="py-2 px-4 border">{{ $data['target_weekly']['last1']['plan_kumulatif'] }}%</td>
                             <td class="py-2 px-4 border">{{ $data['target_weekly']['current']['plan_kumulatif'] }}%
                             </td>
                             <td class="py-2 px-4 border">
-                                {{ $all_plan_kumulatif = $data['target_weekly']['current']['plan_kumulatif'] + $data['target_weekly']['last']['plan_kumulatif'] }}%
+                                {{ $all_plan_kumulatif = $data['target_weekly']['current']['plan_kumulatif'] + $data['target_weekly']['last1']['plan_kumulatif'] }}%
                             </td>
 
-                            <td class="py-2 px-4 border">{{ $data['target_weekly']['last']['real_kumulatif'] }}%</td>
+                            <td class="py-2 px-4 border">{{ $data['target_weekly']['last1']['real_kumulatif'] }}%</td>
                             <td class="py-2 px-4 border">{{ $data['target_weekly']['current']['real_kumulatif'] }}%
                             </td>
                             <td class="py-2 px-4 border">
-                                {{ $all_real_kumulatif = $data['target_weekly']['last']['real_kumulatif'] + $data['target_weekly']['current']['real_kumulatif'] }}%
+                                {{ $all_real_kumulatif = $data['target_weekly']['last1']['real_kumulatif'] + $data['target_weekly']['current']['real_kumulatif'] }}%
                             </td>
 
                             <td class="py-2 px-4 border">{{ $all_real_kumulatif - $all_plan_kumulatif }}%</td>
@@ -162,19 +150,19 @@
                             <tr>
                                 <td class="py-2 px-4 border">{{ $target['location_name'] }}</td>
                                 <td class="py-2 px-4 border">
-                                    {{ $data['target_weekly']['last']['target'][$index]['plan_kumulatif'] }}%</td>
+                                    {{ $data['target_weekly']['last1']['target'][$index]['plan_kumulatif'] }}%</td>
                                 <td class="py-2 px-4 border">
                                     {{ $data['target_weekly']['current']['target'][$index]['plan_kumulatif'] }}%</td>
                                 <td class="py-2 px-4 border">
-                                    {{ $all_plan_kumulatif = $data['target_weekly']['current']['target'][$index]['plan_kumulatif'] + $data['target_weekly']['last']['target'][$index]['plan_kumulatif'] }}%
+                                    {{ $all_plan_kumulatif = $data['target_weekly']['current']['target'][$index]['plan_kumulatif'] + $data['target_weekly']['last1']['target'][$index]['plan_kumulatif'] }}%
                                 </td>
 
                                 <td class="py-2 px-4 border">
-                                    {{ $data['target_weekly']['last']['target'][$index]['real_kumulatif'] }}%</td>
+                                    {{ $data['target_weekly']['last1']['target'][$index]['real_kumulatif'] }}%</td>
                                 <td class="py-2 px-4 border">
                                     {{ $data['target_weekly']['current']['target'][$index]['real_kumulatif'] }}%</td>
                                 <td class="py-2 px-4 border">
-                                    {{ $all_real_kumulatif = $data['target_weekly']['current']['target'][$index]['real_kumulatif'] + $data['target_weekly']['last']['target'][$index]['real_kumulatif'] }}%
+                                    {{ $all_real_kumulatif = $data['target_weekly']['current']['target'][$index]['real_kumulatif'] + $data['target_weekly']['last1']['target'][$index]['real_kumulatif'] }}%
                                 </td>
 
                                 <td class="py-2 px-4 border">{{ $all_real_kumulatif - $all_plan_kumulatif }}%</td>
@@ -225,27 +213,25 @@
         </div>
 
         <div class="p-6 bg-white shadow rounded-lg">
-            <div class="block mb-4 text-bold bg-gray-500 text-white p-3 rounded-lg">PROGRES PEKERJAAN (PHOTO) MINGGU {{ $data['target_weekly']['current']['time_week'] }}</div>
+            <div class="block mb-4 text-bold bg-gray-500 text-white p-3 rounded-lg">PROGRES PEKERJAAN (PHOTO) MINGGU
+                {{ $data['target_weekly']['current']['time_week'] }}</div>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 @foreach ($data['gallery'] as $gl)
-                <a href="{{ asset('assets/gallery/'. $gl->gallery_image) }}" data-fancybox="gallery" class="block" data-caption="{{ $gl->gallery_desc }}">
-                    <img src="{{ asset('assets/gallery/'. $gl->gallery_image) }}" alt="{{ $gl->gallery_desc }}" class="w-full h-auto shadow-md">
-                    <figcaption class="bg-gray-200 p-2">{{ $gl->gallery_desc }}</figcaption>
+                    <a href="{{ asset('assets/gallery/' . $gl->gallery_image) }}" data-fancybox="gallery" class="block"
+                        data-caption="{{ $gl->gallery_desc }}">
+                        <img src="{{ asset('assets/gallery/' . $gl->gallery_image) }}" alt="{{ $gl->gallery_desc }}"
+                            class="w-full h-auto shadow-md">
+                        <figcaption class="bg-gray-200 p-2">{{ $gl->gallery_desc }}</figcaption>
                     </a>
                 @endforeach
             </div>
         </div>
 
 
-        <div class="text-gray-700 mt-4">
-            PROJECT MANAGMENT AND SUPERVISION CONSULTANT | PT. CIRIJASA MANDIRI | CONTRACT NO. {{  $data['project_number'] }}
-        </div>
     </div>
+@endsection
 
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+@push('js')
     <script>
         $(document).ready(function() {
             $("[data-fancybox]").fancybox({});
@@ -257,9 +243,9 @@
         function grafik_1() {
             const ctxBar1 = document.getElementById("ctxBar1").getContext("2d");
             const targetWeekly = @json($data['target_weekly']);
-            const labels = [`M${targetWeekly.last.time_week}`, `M${targetWeekly.current.time_week}`];
-            const planKumulatif = [targetWeekly.last.plan_kumulatif, targetWeekly.current.plan_kumulatif];
-            const realKumulatif = [targetWeekly.last.real_kumulatif, targetWeekly.current.real_kumulatif];
+            const labels = [`M${targetWeekly.last1.time_week}`, `M${targetWeekly.current.time_week}`];
+            const planKumulatif = [targetWeekly.last1.plan_kumulatif, targetWeekly.current.plan_kumulatif];
+            const realKumulatif = [targetWeekly.last1.real_kumulatif, targetWeekly.current.real_kumulatif];
 
             const chart = new Chart(ctxBar1, {
                 type: "bar",
@@ -427,6 +413,4 @@
             });
         }
     </script>
-</body>
-
-</html>
+@endpush

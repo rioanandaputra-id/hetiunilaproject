@@ -17,4 +17,19 @@ class Target extends Model
         'plan_kumulatif',
         'real_kumulatif',
     ];
+
+    public function project()
+    {
+        return $this->belongsTo(Project::class);
+    }
+
+    public function timeline()
+    {
+        return $this->belongsTo(Timeline::class);
+    }
+
+    public function location()
+    {
+        return $this->belongsTo(Location::class);
+    }
 }

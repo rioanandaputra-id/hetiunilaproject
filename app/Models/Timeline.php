@@ -17,4 +17,14 @@ class Timeline extends Model
         'time_start',
         'time_end',
     ];
+
+    public function project()
+    {
+        return $this->belongsTo(Project::class);
+    }
+
+    public function targets()
+    {
+        return $this->hasMany(Target::class);
+    }
 }
