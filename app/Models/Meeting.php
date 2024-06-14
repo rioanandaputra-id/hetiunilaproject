@@ -16,6 +16,7 @@ class Meeting extends Model
         'meeting_location',
         'meeting_agenda',
         'meeting_agenda_en',
+        'meeting_week',
     ];
 
 

@@ -6,7 +6,14 @@ use Illuminate\Http\Request;
 
 class MonitoringController extends Controller
 {
-  function index()
+    private $project_id;
+
+    public function __construct()
+    {
+        $this->project_id = env('COMPANY_DEFAULT_ID');
+    }
+
+    function index()
     {
 
         $project = \DB::select("
@@ -52,7 +59,7 @@ class MonitoringController extends Controller
                 tm.project_id = ?
                 AND tm.is_active = TRUE
                 AND tm.deleted_at IS NULL
-        ", [$project[0]->id]);
+        ", [$this->project_id]);
 
         $timeline_last1 = \DB::select("
             SELECT
@@ -68,7 +75,7 @@ class MonitoringController extends Controller
                 tm.project_id = ?
                 AND tm.time_week = ?
                 AND tm.deleted_at IS NULL
-        ", [$project[0]->id, ($timeline_current[0]->time_week - 1)]);
+        ", [$this->project_id, ($timeline_current[0]->time_week - 1)]);
 
         $timeline_last2 = \DB::select("
             SELECT
@@ -84,7 +91,7 @@ class MonitoringController extends Controller
                 tm.project_id = ?
                 AND tm.time_week = ?
                 AND tm.deleted_at IS NULL
-        ", [$project[0]->id, ($timeline_current[0]->time_week - 2)]);
+        ", [$this->project_id, ($timeline_current[0]->time_week - 2)]);
 
         $timeline_next = \DB::select("
             SELECT
@@ -100,7 +107,7 @@ class MonitoringController extends Controller
                 tm.project_id = ?
                 AND tm.time_week = ?
                 AND tm.deleted_at IS NULL
-        ", [$project[0]->id, ($timeline_current[0]->time_week + 1)]);
+        ", [$this->project_id, ($timeline_current[0]->time_week + 1)]);
 
 
         $target_current = \DB::select("
@@ -120,7 +127,7 @@ class MonitoringController extends Controller
                 tg.project_id = ?
                 AND tg.deleted_at IS NULL
                 AND tg.timeline_id = ?
-        ", [$project[0]->id, $timeline_current[0]->id]);
+        ", [$this->project_id, $timeline_current[0]->id]);
 
         $target_last1 = \DB::select("
             SELECT
@@ -139,7 +146,7 @@ class MonitoringController extends Controller
                 tg.project_id = ?
                 AND tg.deleted_at IS NULL
                 AND tg.timeline_id = ?
-        ", [$project[0]->id, $timeline_last1[0]->id]);
+        ", [$this->project_id, $timeline_last1[0]->id]);
 
         $target_last2 = \DB::select("
             SELECT
@@ -158,7 +165,7 @@ class MonitoringController extends Controller
                 tg.project_id = ?
                 AND tg.deleted_at IS NULL
                 AND tg.timeline_id = ?
-        ", [$project[0]->id, $timeline_last2[0]->id]);
+        ", [$this->project_id, $timeline_last2[0]->id]);
 
         $target_next = \DB::select("
             SELECT
@@ -177,7 +184,7 @@ class MonitoringController extends Controller
                 tg.project_id = ?
                 AND tg.deleted_at IS NULL
                 AND tg.timeline_id = ?
-        ", [$project[0]->id, $timeline_next[0]->id]);
+        ", [$this->project_id, $timeline_next[0]->id]);
 
         $target_all = \DB::select("
             SELECT
@@ -193,14 +200,14 @@ class MonitoringController extends Controller
             FROM
                 timelines AS tm
                 WHERE project_id = ? AND deleted_at IS NULL
-        ", [$project[0]->id]);
+        ", [$this->project_id]);
 
         $gallery = \DB::select("SELECT * FROM galleries WHERE deleted_at IS NULL AND timeline_id = ? ORDER BY created_at ASC", [$timeline_current[0]->id]);
 
         $data_target_current = [];
         $data_target_current_plan_kumulatif_sum = 0;
         $data_target_current_real_kumulatif_sum = 0;
-        foreach($target_current as $tc){
+        foreach ($target_current as $tc) {
             $data_target_current[] = [
                 "id" => $tc->id,
                 "location_id" => $tc->location_id,
@@ -218,7 +225,7 @@ class MonitoringController extends Controller
         $data_target_last1 = [];
         $data_target_last1_plan_kumulatif_sum = 0;
         $data_target_last1_real_kumulatif_sum = 0;
-        foreach($target_last1 as $tc){
+        foreach ($target_last1 as $tc) {
             $data_target_last1[] = [
                 "id" => $tc->id,
                 "location_id" => $tc->location_id,
@@ -235,7 +242,7 @@ class MonitoringController extends Controller
         $data_target_last2 = [];
         $data_target_last2_plan_kumulatif_sum = 0;
         $data_target_last2_real_kumulatif_sum = 0;
-        foreach($target_last2 as $tc){
+        foreach ($target_last2 as $tc) {
             $data_target_last2[] = [
                 "id" => $tc->id,
                 "location_id" => $tc->location_id,
@@ -252,7 +259,7 @@ class MonitoringController extends Controller
         $data_target_next = [];
         $data_target_next_plan_kumulatif_sum = 0;
         $data_target_next_real_kumulatif_sum = 0;
-        foreach($target_next as $tc){
+        foreach ($target_next as $tc) {
             $data_target_next[] = [
                 "id" => $tc->id,
                 "location_id" => $tc->location_id,
@@ -267,7 +274,7 @@ class MonitoringController extends Controller
         }
 
         $data = [
-            "id" => $project[0]->id ?? null,
+            "id" => $this->project_id ?? null,
             "project_logo" => $project[0]->project_logo ?? null,
             "project_name" => $project[0]->project_name ?? null,
             "project_number" => $project[0]->project_number ?? null,
@@ -332,7 +339,8 @@ class MonitoringController extends Controller
         return $data;
     }
 
-    function monitoring() {
+    function monitoring()
+    {
         $data = $this->index();
         return view('monitorings.index', compact('data'));
     }

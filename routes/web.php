@@ -19,22 +19,10 @@ Route::controller(MonitoringController::class)
     ->group(function () {
         Route::get('/', 'monitoring')->name('monitoring');
     });
-    // Route::controller(MeetingController::class)
-    // ->group(function () {
-    //     Route::get('/meetings', [MeetingController::class, 'index'])->name('meetings.index');
-    //     Route::get('/meetings/create', [MeetingController::class, 'create'])->name('meetings.create');
-    //     Route::post('/meetings', [MeetingController::class, 'store'])->name('meetings.store');
-    //     Route::get('/meetings/{meeting}', [MeetingController::class, 'show'])->name('meetings.show');
-    //     Route::get('/meetings/{meeting}/edit', [MeetingController::class, 'edit'])->name('meetings.edit');
-    //     Route::put('/meetings/{meeting}', [MeetingController::class, 'update'])->name('meetings.update');
-    //     Route::delete('/meetings/{meeting}', [MeetingController::class, 'destroy'])->name('meetings.destroy');
-    // });
 
-
-    Route::get('/meetings', [MeetingController::class, 'index'])->name('meetings.index');
+Route::get('/meetings', [MeetingController::class, 'index'])->name('meetings.index');
 Route::get('/meetings/create', [MeetingController::class, 'create'])->name('meetings.create');
 Route::post('/store', [MeetingController::class, 'store'])->name('meetings.store');
 Route::get('/meetings/edit/{meeting}', [MeetingController::class, 'edit'])->name('meetings.edit');
 Route::put('/meetings/update/{meeting}', [MeetingController::class, 'update'])->name('meetings.update');
 Route::delete('/meetings/destroy/{meeting}', [MeetingController::class, 'destroy'])->name('meetings.destroy');
-Route::get('/meetings/show/{meeting}', [MeetingController::class, 'show'])->name('meetings.show');

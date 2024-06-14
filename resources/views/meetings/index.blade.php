@@ -1,20 +1,20 @@
 @extends('template')
 
 @section('content')
-<div class="container mx-auto p-4 bg-gray-50 min-h-screen">
-    <h1 class="text-3xl font-bold mb-4 text-center text-blue-800">MONITORING PMSC</h1>
+<div class="container mx-auto p-6 bg-gray-50 min-h-screen">
+    <h1 class="text-3xl font-extrabold mb-6 text-center text-blue-800">MONITORING PMSC</h1>
 
     {{-- Filter and Create Meeting Form --}}
-    <form method="GET" action="{{ route('meetings.index') }}" class="mb-4 bg-white shadow-md rounded-lg p-6 border border-gray-300">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+    <form method="GET" action="{{ route('meetings.index') }}" class="mb-6 bg-white shadow-lg rounded-lg p-6 border border-gray-300">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <div>
                 <label for="date" class="block text-sm font-medium text-gray-700">Date</label>
-                <input type="date" id="date" name="date" class="mt-1 block w-full border border-gray-300 rounded-md p-2">
+                <input type="date" id="date" name="date" class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500">
             </div>
 
             <div>
                 <label for="week" class="block text-sm font-medium text-gray-700">Week</label>
-                <input type="number" id="week" name="week" class="mt-1 block w-full border border-gray-300 rounded-md p-2">
+                <input type="number" id="week" name="week" class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500">
             </div>
         </div>
 
@@ -25,22 +25,21 @@
     </form>
 
     {{-- Meetings List --}}
-    <div class="grid grid-cols-1 gap-4">
+    <div class="grid grid-cols-1 gap-6">
         @foreach ($meetings as $meeting)
             <div class="border rounded-lg p-6 bg-white shadow-md hover:shadow-lg transition duration-300 border-gray-300">
-
-                <div class="bg-gray-500 p-5 text-white">
-                    <h2 class="text-xl font-bold mb-2 ">MINGGU 14</h2>
+                <div class="bg-gray-500 p-5 text-white rounded-t-lg">
+                    <h2 class="text-xl font-bold mb-2">MINGGU {{ $meeting->meeting_week }}</h2>
 
                     {{-- Meeting Information in Two Columns --}}
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                         <div>
-                            <p class=" mb-2"><strong>Date:</strong> {{ $meeting->meeting_date }}</p>
-                            <p class=" mb-2"><strong>Location:</strong> {{ $meeting->meeting_location }}</p>
+                            <p class="mb-2"><strong>Date:</strong> {{ $meeting->meeting_date }}</p>
+                            <p class="mb-2"><strong>Location:</strong> {{ $meeting->meeting_location }}</p>
                         </div>
                         <div>
-                            <p class=" mb-2"><strong>Agenda:</strong> {{ $meeting->meeting_agenda }}</p>
-                            <p class=" mb-2"><strong>Agenda (EN):</strong> {{ $meeting->meeting_agenda_en }}</p>
+                            <p class="mb-2"><strong>Agenda:</strong> {{ $meeting->meeting_agenda }}</p>
+                            <p class="mb-2"><strong>Agenda (EN):</strong> {{ $meeting->meeting_agenda_en }}</p>
                         </div>
                     </div>
                 </div>
