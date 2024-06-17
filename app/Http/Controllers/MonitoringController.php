@@ -13,7 +13,7 @@ class MonitoringController extends Controller
         $this->project_id = env('COMPANY_DEFAULT_ID');
     }
 
-    function index()
+    function getData()
     {
 
         $project = \DB::select("
@@ -339,9 +339,9 @@ class MonitoringController extends Controller
         return $data;
     }
 
-    function monitoring()
+    function index()
     {
-        $data = $this->index();
-        return view('monitorings.index', compact('data'));
+        $data = $this->getData();
+        return view('frontend.cvw.index', compact('data'));
     }
 }

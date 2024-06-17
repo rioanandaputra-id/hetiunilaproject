@@ -1,16 +1,18 @@
 <?php
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Backend;
 
+use App\Http\Controllers\Controller;
 use App\Models\Meeting;
 use App\Models\MeetingGallery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class MeetingController extends Controller
+class PmscController extends Controller
 {
     public $project_id;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->project_id = env('COMPANY_DEFAULT_ID');
     }
 
@@ -29,12 +31,12 @@ class MeetingController extends Controller
 
         $meetings = $query->with('meetingGallery')->get();
 
-        return view('frontend.pmsc.index', compact('meetings'));
+        return view('backend.monitoring.pmsc.index', compact('meetings'));
     }
 
     public function create()
     {
-        return view('meetings.create');
+        return view('backend.monitoring.pmsc.create');
     }
 
     public function store(Request $request)
@@ -67,12 +69,12 @@ class MeetingController extends Controller
             }
         }
 
-        return redirect()->route('meetings.index')->with('status', 'Meeting created successfully!');
+        return redirect()->route('backend.monitoring.pmsc.index')->with('status', 'Meeting created successfully!');
     }
 
     public function edit(Meeting $meeting)
     {
-        return view('meetings.edit', compact('meeting'));
+        return view('backend.monitoring.pmsc.edit', compact('meeting'));
     }
 
     public function update(Request $request, Meeting $meeting)
@@ -123,12 +125,12 @@ class MeetingController extends Controller
             }
         }
 
-        return redirect()->route('meetings.index')->with('status', 'Meeting updated successfully!');
+        return redirect()->route('backend.monitoring.pmsc.index')->with('status', 'Meeting updated successfully!');
     }
 
     public function destroy(Meeting $meeting)
     {
         $meeting->delete();
-        return redirect()->route('meetings.index')->with('status', 'Meeting deleted successfully!');
+        return redirect()->route('backend.monitoring.pmsc.index')->with('status', 'Meeting deleted successfully!');
     }
 }
