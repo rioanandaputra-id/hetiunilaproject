@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Location;
-use DataTables;
+use Yajra\DataTables\DataTables;
 use Illuminate\Http\Request;
 
 class LocationController extends Controller

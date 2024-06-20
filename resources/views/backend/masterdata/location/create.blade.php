@@ -16,7 +16,7 @@
                 <input type="text" id="location_name" name="location_name" class="w-full border border-gray-300 rounded p-2" required>
             </div>
             <div class="mb-4">
-                <label for="location_percent" class="block text-gray-700">Presentase</label>
+                <label for="location_percent" class="block text-gray-700">Bobot</label>
                 <input type="number" id="location_percent" name="location_percent" class="w-full border border-gray-300 rounded p-2" required>
             </div>
             <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded">Simpan</button>

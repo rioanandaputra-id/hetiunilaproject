@@ -53,8 +53,7 @@
 
             <!-- Tombol Simpan -->
             <div>
-                <button type="submit" class="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Simpan
-                    Perubahan</button>
+                <button type="submit" class="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Ubah</button>
             </div>
         </form>
     </div>

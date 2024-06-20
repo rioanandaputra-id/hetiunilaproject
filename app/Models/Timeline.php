@@ -16,6 +16,7 @@ class Timeline extends Model
         'time_day',
         'time_start',
         'time_end',
+        'is_active',
     ];
 
     public function project()

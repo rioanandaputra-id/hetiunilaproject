@@ -17,3 +17,9 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+.well-known
+backup.unilaprojectheti.id
+cgi-bin
+civilwork.unilaprojectheti.id
+monitoring.unilaprojectheti.id
+pmsc.unilaprojectheti.id

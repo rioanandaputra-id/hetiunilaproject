@@ -13,7 +13,7 @@
             <thead>
                 <tr>
                     <th class="px-4 py-2">Nama Lokasi</th>
-                    <th class="px-4 py-2">Presentase</th>
+                    <th class="px-4 py-2">Bobot</th>
                     <th class="px-4 py-2">Aksi</th>
                 </tr>
             </thead>

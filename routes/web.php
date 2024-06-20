@@ -4,6 +4,7 @@ use App\Http\Controllers\Backend\CvwController;
 use App\Http\Controllers\Backend\LocationController;
 use App\Http\Controllers\Backend\PmscController;
 use App\Http\Controllers\Backend\ProjectController;
+use App\Http\Controllers\Backend\TimelineController;
 use App\Http\Controllers\MonitoringController;
 use App\Http\Controllers\MeetingController;
 use Illuminate\Support\Facades\Route;
@@ -63,11 +64,25 @@ Route::prefix('backend')->group(function () {
             Route::put('{id}', [LocationController::class, 'update'])->name('backend.masterdata.location.update');
             Route::delete('{id}', [LocationController::class, 'destroy'])->name('backend.masterdata.location.destroy');
         });
+        Route::prefix('timeline')->group(function () {
+            Route::get('/', [TimelineController::class, 'index'])->name('backend.masterdata.timeline.index');
+            Route::get('data', [TimelineController::class, 'data'])->name('backend.masterdata.timeline.data');
+            Route::get('create', [TimelineController::class, 'create'])->name('backend.masterdata.timeline.create');
+            Route::post('/', [TimelineController::class, 'store'])->name('backend.masterdata.timeline.store');
+            Route::get('{id}/edit', [TimelineController::class, 'edit'])->name('backend.masterdata.timeline.edit');
+            Route::put('{id}', [TimelineController::class, 'update'])->name('backend.masterdata.timeline.update');
+            Route::delete('{id}', [TimelineController::class, 'destroy'])->name('backend.masterdata.timeline.destroy');
+        });
     });
     Route::prefix('monitoring')->group(function () {
         Route::prefix('cvw')->group(function () {
             Route::get('/', [CvwController::class, 'index'])->name('backend.monitoring.cvw.index');
             Route::get('data', [CvwController::class, 'data'])->name('backend.monitoring.cvw.data');
+            Route::get('create', [CvwController::class, 'create'])->name('backend.monitoring.cvw.create');
+            Route::post('/', [CvwController::class, 'store'])->name('backend.monitoring.cvw.store');
+            Route::get('{id}/edit', [CvwController::class, 'edit'])->name('backend.monitoring.cvw.edit');
+            Route::put('{id}', [CvwController::class, 'update'])->name('backend.monitoring.cvw.update');
+            Route::delete('{id}', [CvwController::class, 'destroy'])->name('backend.monitoring.cvw.destroy');
         });
         Route::prefix('pmsc')->group(function () {
             Route::get('/', [PmscController::class, 'index'])->name('backend.monitoring.pmsc.index');

@@ -22,8 +22,8 @@
                     <table class="table-auto w-full border-collapse border border-white-200">
                         <thead>
                             <tr class="bg-gray-500 text-white">
-                                <td colspan="3" class="text-center py-2">Waktu Pelaksanaan:
-                                    {{ tanggal($data['project_start']) }} s/d {{ tanggal($data['project_end']) }}</td>
+                                <td colspan="3" class="text-center py-2">Waktu Kontrak:
+                                    {{ tanggal($data['project_start']) }} - {{ tanggal($data['project_end']) }}</td>
                             </tr>
                             <tr>
                                 <th class="py-2 px-4 border">Kontrak</th>

@@ -20,6 +20,11 @@
                 <i class="fas fa-project-diagram mr-3"></i>
                 <span class="sidebar-text">Lokasi</span>
             </a>
+            <a href="{{ route('backend.masterdata.timeline.index') }}"
+                class="flex items-center py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">
+                <i class="fas fa-clock mr-3"></i>
+                <span class="sidebar-text">Timeline</span>
+            </a>
         </div>
         <span class="flex items-center py-2.5 px-4 rounded">
             <span class="sidebar-text">Monitoring</span>
