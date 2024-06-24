@@ -12,10 +12,10 @@ class Timeline extends Model
     protected $table = 'timelines';
     protected $fillable = [
         'project_id',
-        'time_week',
-        'time_day',
-        'time_start',
-        'time_end',
+        'timeline_week',
+        'timeline_day',
+        'timeline_start',
+        'timeline_end',
         'is_active',
     ];
 
@@ -24,8 +24,8 @@ class Timeline extends Model
         return $this->belongsTo(Project::class);
     }
 
-    public function targets()
+    public function cvw()
     {
-        return $this->hasMany(Target::class);
+        return $this->hasMany(Cvw::class);
     }
 }

@@ -6,22 +6,24 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Meeting extends Model
+class Pmsc extends Model
 {
     use HasFactory, SoftDeletes;
+    protected $table = 'pmscs';
 
     protected $fillable = [
         'project_id',
-        'meeting_date',
-        'meeting_location',
-        'meeting_agenda',
-        'meeting_agenda_en',
-        'meeting_week',
+        'timeline_id',
+        'pmsc_date',
+        'pmsc_location',
+        'pmsc_agenda',
+        'pmsc_agenda_en',
+        'pmsc_week',
     ];
 
 
-    public function meetingGallery()
+    public function pmscGallery()
     {
-        return $this->hasMany(MeetingGallery::class);
+        return $this->hasMany(PmscGallery::class);
     }
 }

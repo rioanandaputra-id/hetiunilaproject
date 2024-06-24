@@ -38,20 +38,20 @@
                 serverSide: true,
                 ajax: "{{ route('backend.masterdata.timeline.data') }}",
                 columns: [{
-                        data: 'time_start',
-                        name: 'time_start'
+                        data: 'timeline_start',
+                        name: 'timeline_start'
                     },
                     {
-                        data: 'time_end',
-                        name: 'time_end'
+                        data: 'timeline_end',
+                        name: 'timeline_end'
                     },
                     {
-                        data: 'time_week',
-                        name: 'time_week'
+                        data: 'timeline_week',
+                        name: 'timeline_week'
                     },
                     {
-                        data: 'time_day',
-                        name: 'time_day'
+                        data: 'timeline_day',
+                        name: 'timeline_day'
                     },
                     {
                         data: 'is_active',

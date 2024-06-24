@@ -17,7 +17,6 @@ class Project extends Model
         'project_end',
         'project_day',
         'project_week',
-        'project_number',
     ];
 
     public function timelines()

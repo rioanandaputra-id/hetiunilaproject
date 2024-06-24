@@ -16,7 +16,7 @@ class ProjectController extends Controller
 
     public function edit()
     {
-        $project = Project::findOrFail($this->project_id);
+        $project = Project::find($this->project_id);
         return view('backend.masterdata.project.edit', compact('project'));
     }
 

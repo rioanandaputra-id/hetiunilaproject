@@ -19,7 +19,6 @@ return new class extends Migration
             $table->date('project_end')->nullable();
             $table->integer('project_day');
             $table->integer('project_week');
-            $table->string('project_number');
             $table->timestamps();
             $table->softDeletes();
         });

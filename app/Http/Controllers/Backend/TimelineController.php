@@ -26,10 +26,10 @@ class TimelineController extends Controller
         $timelines = Timeline::select([
             'id',
             'project_id',
-            'time_week',
-            'time_day',
-            'time_start',
-            'time_end',
+            'timeline_week',
+            'timeline_day',
+            'timeline_start',
+            'timeline_end',
             'is_active',
         ])
             ->whereNull('deleted_at')
@@ -55,18 +55,18 @@ class TimelineController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'time_week' => 'required|numeric',
-            'time_day' => 'required|numeric',
-            'time_start' => 'required|date',
-            'time_end' => 'required|date',
+            'timeline_week' => 'required|numeric',
+            'timeline_day' => 'required|numeric',
+            'timeline_start' => 'required|date',
+            'timeline_end' => 'required|date',
             'is_active' => 'required|boolean',
         ]);
 
         Timeline::create([
-            'time_week' => $request->time_week,
-            'time_day' => $request->time_day,
-            'time_start' => $request->time_start,
-            'time_end' => $request->time_end,
+            'timeline_week' => $request->timeline_week,
+            'timeline_day' => $request->timeline_day,
+            'timeline_start' => $request->timeline_start,
+            'timeline_end' => $request->timeline_end,
             'is_active' => $request->is_active,
             'project_id' => $this->project_id,
         ]);
@@ -83,19 +83,19 @@ class TimelineController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'time_week' => 'required|numeric',
-            'time_day' => 'required|numeric',
-            'time_start' => 'required|date',
-            'time_end' => 'required|date',
+            'timeline_week' => 'required|numeric',
+            'timeline_day' => 'required|numeric',
+            'timeline_start' => 'required|date',
+            'timeline_end' => 'required|date',
             'is_active' => 'required|boolean',
         ]);
 
         $timeline = Timeline::findOrFail($id);
         $timeline->update([
-            'time_week' => $request->time_week,
-            'time_day' => $request->time_day,
-            'time_start' => $request->time_start,
-            'time_end' => $request->time_end,
+            'timeline_week' => $request->timeline_week,
+            'timeline_day' => $request->timeline_day,
+            'timeline_start' => $request->timeline_start,
+            'timeline_end' => $request->timeline_end,
             'is_active' => $request->is_active,
         ]);
 

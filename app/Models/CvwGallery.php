@@ -6,18 +6,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Gallery extends Model
+class CvwGallery extends Model
 {
     use HasFactory, SoftDeletes;
+    protected $table = 'cvw_galleries';
 
     protected $fillable = [
-        'meeting_id',
+        'cvw_id',
         'gallery_image',
         'gallery_desc',
     ];
 
-    public function meeting()
+    public function cvw()
     {
-        return $this->belongsTo(Meeting::class);
+        return $this->belongsTo(Cvw::class);
     }
 }

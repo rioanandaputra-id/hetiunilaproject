@@ -80,19 +80,18 @@ Route::prefix('backend')->group(function () {
             Route::get('data', [CvwController::class, 'data'])->name('backend.monitoring.cvw.data');
             Route::get('create', [CvwController::class, 'create'])->name('backend.monitoring.cvw.create');
             Route::post('/', [CvwController::class, 'store'])->name('backend.monitoring.cvw.store');
-            Route::get('{id}/edit', [CvwController::class, 'edit'])->name('backend.monitoring.cvw.edit');
-            Route::put('{id}', [CvwController::class, 'update'])->name('backend.monitoring.cvw.update');
-            Route::delete('{id}', [CvwController::class, 'destroy'])->name('backend.monitoring.cvw.destroy');
+            Route::get('{cvw}/edit', [CvwController::class, 'edit'])->name('backend.monitoring.cvw.edit');
+            Route::put('{cvw}', [CvwController::class, 'update'])->name('backend.monitoring.cvw.update');
+            Route::delete('{cvw}', [CvwController::class, 'destroy'])->name('backend.monitoring.cvw.destroy');
         });
         Route::prefix('pmsc')->group(function () {
             Route::get('/', [PmscController::class, 'index'])->name('backend.monitoring.pmsc.index');
             Route::get('data', [PmscController::class, 'data'])->name('backend.monitoring.pmsc.data');
             Route::get('create', [PmscController::class, 'create'])->name('backend.monitoring.pmsc.create');
             Route::post('/', [PmscController::class, 'store'])->name('backend.monitoring.pmsc.store');
-
-            Route::get('edit/{meeting}', [PmscController::class, 'edit'])->name('backend.monitoring.pmsc.edit');
-            Route::put('{meeting}', [PmscController::class, 'update'])->name('backend.monitoring.pmsc.update');
-            Route::delete('{meeting}', [PmscController::class, 'destroy'])->name('backend.monitoring.pmsc.destroy');
+            Route::get('edit/{pmsc}', [PmscController::class, 'edit'])->name('backend.monitoring.pmsc.edit');
+            Route::put('{pmsc}', [PmscController::class, 'update'])->name('backend.monitoring.pmsc.update');
+            Route::delete('{pmsc}', [PmscController::class, 'destroy'])->name('backend.monitoring.pmsc.destroy');
         });
     });
 });

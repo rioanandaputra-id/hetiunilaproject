@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('targets', function (Blueprint $table) {
+        Schema::create('pmscs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('project_id')->index()->constrained();
-            $table->foreignId('location_id')->index()->constrained();
             $table->foreignId('timeline_id')->index()->constrained();
-            $table->decimal('plan_kumulatif', 10, 2)->default(0.00);
-            $table->decimal('real_kumulatif', 10, 2)->default(0.00);
+            $table->datetime('pmsc_date');
+            $table->string('pmsc_location');
+            $table->string('pmsc_agenda');
+            $table->string('pmsc_agenda_en');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('targets');
+        Schema::dropIfExists('pmscs');
     }
 };

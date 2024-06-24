@@ -4,25 +4,36 @@
     <div class="container mx-auto">
         <div class="flex justify-between items-center mb-4">
             <h2 class="text-2xl font-semibold">MONITORING CIVIL WORK</h2>
-            <a href="{{ route('backend.monitoring.cvw.create') }}" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded inline-block">
+            <a href="{{ route('backend.monitoring.cvw.create') }}"
+                class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded inline-block">
                 Tambah Civil Work
             </a>
+        </div>
+
+        <div class="mb-4">
+            <label for="timeline_week_filter" class="block text-gray-700">Filter by Minggu</label>
+            <select id="timeline_week_filter" class="w-full border border-gray-300 rounded p-2">
+                <option value="">Pilih Minggu</option>
+                @foreach ($timelines as $timeline)
+                    <option value="{{ $timeline->timeline_week }}" {{ $timeline->is_active ? 'selected' : '' }}>
+                        Minggu ke-{{ $timeline->timeline_week }}
+                    </option>
+                @endforeach
+            </select>
         </div>
 
         <table id="cvw-table" class="table-auto w-full">
             <thead>
                 <tr>
-                    <th class="px-4 py-2">Minggu</th>
-                    <th class="px-4 py-2">Lokasi</th>
-                    <th class="px-4 py-2">Rencana</th>
-                    <th class="px-4 py-2">Realisasi</th>
-                    {{-- <th class="px-4 py-2">Diviasi</th>
-                    <th class="px-4 py-2">Progres</th> --}}
-                    <th class="px-4 py-2">Aksi</th>
+                    <th class="px-4 py-2">MINGGU</th>
+                    <th class="px-4 py-2">LOKASI</th>
+                    <th class="px-4 py-2">RENC. KUM.</th>
+                    <th class="px-4 py-2">REAL. KUM.</th>
+                    <th class="px-4 py-2">DEVIASI</th>
+                    <th class="px-4 py-2">PROGRESS</th>
+                    <th class="px-4 py-2">AKSI</th>
                 </tr>
             </thead>
-
-            </tbody>
         </table>
     </div>
 @endsection
@@ -32,23 +43,32 @@
 @endpush
 
 @push('js')
-<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-<script>
-    $(document).ready(function() {
-        $('#cvw-table').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: "{{ route('backend.monitoring.cvw.data') }}",
-            columns: [
-                { data: 'time_week', name: 'time_week' },
-                { data: 'location_name', name: 'location_name' },
-                { data: 'plan_kumulatif', name: 'plan_kumulatif' },
-                { data: 'real_kumulatif', name: 'real_kumulatif' },
-                // { data: 'deviasi', name: 'deviasi' },
-                // { data: 'progress', name: 'progress' },
-                { data: 'action', name: 'action', orderable: false, searchable: false }
-            ],
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var table = $('#cvw-table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: "{{ route('backend.monitoring.cvw.data') }}",
+                    data: function (d) {
+                        d.timeline_week = $('#timeline_week_filter').val();
+                    }
+                },
+                columns: [
+                    { data: 'timeline_week', name: 'timeline_week' },
+                    { data: 'location_name', name: 'location_name' },
+                    { data: 'cvw_plan_cumulative', name: 'cvw_plan_cumulative' },
+                    { data: 'cvw_real_cumulative', name: 'cvw_real_cumulative' },
+                    { data: 'cvw_deviasi', name: 'cvw_deviasi' },
+                    { data: 'cvw_progress', name: 'cvw_progress' },
+                    { data: 'action', name: 'action', orderable: false, searchable: false }
+                ],
+            });
+
+            $('#timeline_week_filter').change(function() {
+                table.draw();
+            });
         });
-    });
-</script>
+    </script>
 @endpush

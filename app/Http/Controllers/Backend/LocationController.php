@@ -23,7 +23,7 @@ class LocationController extends Controller
 
     public function data()
     {
-        $locations = Location::select(['id', 'location_name', 'location_percent'])
+        $locations = Location::select(['id', 'location_name', 'location_bobot'])
             ->whereNull('deleted_at')
             ->where('project_id', $this->project_id);
 
@@ -48,12 +48,12 @@ class LocationController extends Controller
     {
         $request->validate([
             'location_name' => 'required',
-            'location_percent' => 'required|numeric',
+            'location_bobot' => 'required|numeric',
         ]);
 
         Location::create([
             'location_name' => $request->location_name,
-            'location_percent' => $request->location_percent,
+            'location_bobot' => $request->location_bobot,
             'project_id' => $this->project_id,
         ]);
 
@@ -70,13 +70,13 @@ class LocationController extends Controller
     {
         $request->validate([
             'location_name' => 'required',
-            'location_percent' => 'required|numeric',
+            'location_bobot' => 'required|numeric',
         ]);
 
         $location = Location::findOrFail($id);
         $location->update([
             'location_name' => $request->location_name,
-            'location_percent' => $request->location_percent,
+            'location_bobot' => $request->location_bobot,
         ]);
 
         return redirect()->route('backend.masterdata.location.index');

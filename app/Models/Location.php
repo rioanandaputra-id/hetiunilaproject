@@ -13,6 +13,6 @@ class Location extends Model
     protected $fillable = [
         'project_id',
         'location_name',
-        'location_percent',
+        'location_bobot',
     ];
 }

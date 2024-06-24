@@ -35,7 +35,7 @@
                 ajax: "{{ route('backend.masterdata.location.data') }}",
                 columns: [
                     { data: 'location_name', name: 'location_name' },
-                    { data: 'location_percent', name: 'location_percent' },
+                    { data: 'location_bobot', name: 'location_bobot' },
                     { data: 'action', name: 'action', orderable: false, searchable: false }
                 ],
             });

@@ -6,19 +6,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class MeetingGallery extends Model
+class PmscGallery extends Model
 {
     use HasFactory, SoftDeletes;
+    protected $table = 'pmsc_galleries';
 
     protected $fillable = [
-        'meeting_id',
+        'pmsc_id',
         'gallery_image',
         'gallery_desc',
     ];
 
-    public function meeting()
+    public function pmsc()
     {
-        return $this->belongsTo(Meeting::class);
+        return $this->belongsTo(Pmsc::class);
     }
 }
 

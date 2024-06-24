@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('timelines', function (Blueprint $table) {
             $table->id();
             $table->foreignId('project_id')->index()->constrained();
-            $table->date('time_start');
-            $table->date('time_end');
-            $table->integer('time_week');
-            $table->integer('time_day');
+            $table->date('timeline_start');
+            $table->date('timeline_end');
+            $table->integer('timeline_week');
+            $table->integer('timeline_day');
             $table->boolean('is_active')->default(false);
             $table->timestamps();
             $table->softDeletes();

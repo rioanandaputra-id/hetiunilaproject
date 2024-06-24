@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('galleries', function (Blueprint $table) {
+        Schema::create('cvw_galleries', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('timeline_id')->index()->constrained();
+            $table->foreignId('cvw_id')->index()->constrained();
+            $table->foreignId('location_id')->index()->constrained();
             $table->text('gallery_image');
             $table->string('gallery_desc');
             $table->timestamps();
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('galleries');
+        Schema::dropIfExists('cvw_galleries');
     }
 };
