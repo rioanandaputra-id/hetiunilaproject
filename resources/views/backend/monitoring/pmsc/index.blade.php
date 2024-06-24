@@ -34,53 +34,40 @@
         </div>
     </form>
 
-    <div class="grid grid-cols-1 gap-6">
-        @forelse ($pmscs as $pmsc)
-            <div class="border rounded-lg p-6 bg-white shadow-md hover:shadow-lg transition duration-300 border-gray-300">
-                <div class="bg-gray-500 p-5 text-white rounded-t-lg">
-                    <h2 class="text-xl font-bold mb-2">MINGGU {{ $pmsc->meeting_week }}</h2>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                        <div>
-                            <p class="mb-2"><strong>Date:</strong> {{ $pmsc->meeting_date }}</p>
-                            <p class="mb-2"><strong>Location:</strong> {{ $pmsc->meeting_location }}</p>
-                        </div>
-                        <div>
-                            <p class="mb-2"><strong>Agenda:</strong> {{ $pmsc->meeting_agenda }}</p>
-                            <p class="mb-2"><strong>Agenda (EN):</strong> {{ $pmsc->meeting_agenda_en }}</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
-                    @foreach ($pmsc->pmscGallery as $gallery)
-                        <div class="mb-4">
-                            <img src="{{ Storage::url($gallery->gallery_image) }}" alt="Gallery Image" class="w-full h-auto rounded-lg shadow-md">
-                            <p class="text-gray-600 mt-2">{{ $gallery->gallery_desc }}</p>
-                        </div>
-                    @endforeach
-                </div>
-
-                <div class="flex justify-end items-center mt-4">
-                    <a href="{{ route('backend.monitoring.pmsc.edit', $pmsc) }}" class="px-4 py-2 bg-yellow-600 text-white rounded hover:bg-yellow-700 transition duration-300">Edit</a>
-                    <form action="{{ route('backend.monitoring.pmsc.destroy', $pmsc) }}" method="POST" class="ml-2">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition duration-300">Delete</button>
-                    </form>
-                </div>
-
-            </div>
-        @empty
-            <div class="border rounded-lg p-6 bg-white shadow-md border-gray-300">
-                <p class="text-gray-600 text-center">Tidak Ada Data</p>
-            </div>
-        @endforelse
+    <div id="pmsc-container" class="grid grid-cols-1 gap-6">
+        @include('backend.monitoring.pmsc.partials.pmsc_list', ['pmscs' => $pmscs])
     </div>
+
+    @if ($pmscs->hasMorePages())
+        <div class="flex justify-center mt-6">
+            <button id="load-more" class="px-4 py-2 bg-blue-800 text-white rounded hover:bg-blue-900 transition duration-300">Load More</button>
+        </div>
+    @endif
 </div>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        let nextPageUrl = '{{ $pmscs->nextPageUrl() }}';
+
+        const loadMoreButton = document.getElementById('load-more');
+        const pmscContainer = document.getElementById('pmsc-container');
+
+        loadMoreButton.addEventListener('click', function () {
+            if (nextPageUrl) {
+                fetch(nextPageUrl)
+                    .then(response => response.json())
+                    .then(data => {
+                        pmscContainer.insertAdjacentHTML('beforeend', data.pmscs);
+                        nextPageUrl = data.next_page_url;
+
+                        if (!nextPageUrl) {
+                            loadMoreButton.style.display = 'none';
+                        }
+                    })
+                    .catch(error => console.error('Error fetching more PMSCs:', error));
+            }
+        });
+
         const deleteButtons = document.querySelectorAll('.delete-button');
         deleteButtons.forEach(function (button) {
             button.addEventListener('click', function (event) {

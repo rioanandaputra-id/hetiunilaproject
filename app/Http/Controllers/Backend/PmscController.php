@@ -30,11 +30,19 @@ class PmscController extends Controller
             $query->where('timeline_id', $request->timeline_id);
         }
 
-        $pmscs = $query->with('pmscGallery')->get();
+        $pmscs = $query->with('pmscGallery')->paginate(10);
+
+        if ($request->ajax()) {
+            return response()->json([
+                'pmscs' => view('backend.monitoring.pmsc.partials.pmsc_list', compact('pmscs'))->render(),
+                'next_page_url' => $pmscs->nextPageUrl()
+            ]);
+        }
 
         $timelines = Timeline::whereNull('deleted_at')->where('project_id', $this->project_id)->get();
         return view('backend.monitoring.pmsc.index', compact('pmscs', 'timelines'));
     }
+
 
     public function create()
     {
