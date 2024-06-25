@@ -16,8 +16,8 @@
                         MONITORING PMSC
                     </h1>
                 </div>
-                <form method="GET" action="{{ route('monitoring.pmsc.indexxx') }}" onchange="this.form.submit()">
-                    <select name="timeline_id" id="timeline_id" class="w-full border border-gray-300 rounded p-2" required>
+                <form method="GET" action="{{ route('monitoring.pmsc.indexxx') }}">
+                    <select name="timeline_id" id="timeline_id" class="w-full border border-gray-300 rounded p-2" onchange="this.form.submit()">
                         @foreach ($timelines as $tmm)
                             <option value="{{ $tmm->id }}" @if (request()->get('timeline_id') == $tmm->id || (request()->get('timeline_id') == null && $tmm->is_active)) selected @endif>MINGGU KE
                                 {{ $tmm->timeline_week }}</option>
