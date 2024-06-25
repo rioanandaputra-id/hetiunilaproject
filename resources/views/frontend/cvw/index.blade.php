@@ -28,13 +28,15 @@
                 </h1>
             </div>
             <div class="mt-3 text-gray-700">
-                <div>Periode:
-                    <select name="timeline_id" id="timeline_id" class="border border-black rounded p-1 text-black">
-                        @foreach ($timelines as $tm)
-                            <option value="{{ $tm->id }}">MINGGU KE-{{ $tm->timeline_week }}</option>
-                        @endforeach
-                    </select>
-                </div>
+                <form method="GET" action="{{ url()->current() }}">
+                    <div>Periode:
+                        <select name="timeline_id" id="timeline_id" class="border border-black rounded p-1 text-black" onchange="this.form.submit()">
+                            @foreach ($timelines as $tm)
+                                <option value="{{ $tm->id }}" {{ ($data->timelines->current->timeline_week == $tm->timeline_week) ? 'selected' : ''}}>MINGGU KE {{ $tm->timeline_week }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </form>
                 <div>Tanggal: {{ tanggal($data->timelines->current->timeline_start) }} s/d {{ tanggal($data->timelines->current->timeline_end) }}</div>
             </div>
         </div>
@@ -45,7 +47,7 @@
                     <table class="table-auto w-full border-collapse border border-white-200">
                         <thead>
                             <tr class="bg-gray-500 text-white">
-                                <td colspan="3" class="text-center py-2">Waktu Kontrak: {{ tanggal($data->project->project_start) }} s/d {{ tanggal($data->project->project_end) }}</td>
+                                <td colspan="3" class="text-center py-2">Waktu Kontrak {{ tanggal($data->project->project_start) }} s/d {{ tanggal($data->project->project_end) }}</td>
                             </tr>
                             <tr>
                                 <th class="py-2 px-4 border">Kontrak</th>
@@ -117,13 +119,12 @@
         </div>
 
         <div class="p-6 bg-white shadow rounded-lg">
-            <div class="overflow-x-auto">
+            <div class="overflow-x-auto pb-10">
                 <table class="table-auto w-full border-collapse border border-white-200">
                     <thead class="bg-gray-500 text-white">
                         <tr class="bg-gray-500 text-white">
-                            <th colspan="9" class="text-center py-2">Monitoring Progress Pekerjaan Minggu ke-{{$data->timelines->current->timeline_week }} :
-                                {{ tanggal($data->timelines->current->timeline_start) }} s/d
-                                {{ tanggal($data->timelines->current->timeline_end) }}
+                            <th colspan="9" class="text-center py-2">Monitoring Progress Pekerjaan Minggu Ke {{$data->timelines->current->timeline_week }}
+
                             </th>
                         </tr>
                         <tr>
@@ -146,10 +147,10 @@
                         @foreach ($data->timelines->current->cvws as $index => $cvw)
                             <tr>
                                 <td class="py-2 px-4 border">{{ $cvw->location_name }}</td>
-                                <td class="py-2 px-4 border">{{ $data->timelines->last->cvws[$index]->cvw_plan_cumulative }}%</td>
+                                <td class="py-2 px-4 border">{{ $data->timelines->last->cvws[$index]->cvw_plan_cumulative ?? 0.00 }}%</td>
                                 <td class="py-2 px-4 border">{{ $cvw->cvw_plan }}%</td>
                                 <td class="py-2 px-4 border">{{ $cvw->cvw_plan_cumulative }}%</td>
-                                <td class="py-2 px-4 border">{{ $data->timelines->last->cvws[$index]->cvw_real_cumulative }}%</td>
+                                <td class="py-2 px-4 border">{{ $data->timelines->last->cvws[$index]->cvw_real_cumulative ?? 0.00 }}%</td>
                                 <td class="py-2 px-4 border">{{ $cvw->cvw_real }}%</td>
                                 <td class="py-2 px-4 border">{{ $cvw->cvw_real_cumulative }}</td>
                                 <td class="py-2 px-4 border">{{ $cvw->cvw_deviasi }}%</td>
@@ -158,10 +159,10 @@
                         @endforeach
                         <tr class="font-semibold bg-gray-200">
                             <td class="py-2 px-4 border">SEMUA LOKASI</td>
-                            <td class="py-2 px-4 border">{{ $data->timelines->last->sum_cvw_plan_cumulative }}%</td>
+                            <td class="py-2 px-4 border">{{ $data->timelines->last->sum_cvw_plan_cumulative ?? 0.00 }}%</td>
                             <td class="py-2 px-4 border">{{ $data->timelines->current->sum_cvw_plan }}%</td>
                             <td class="py-2 px-4 border">{{ $data->timelines->current->sum_cvw_plan_cumulative }}%</td>
-                            <td class="py-2 px-4 border">{{ $data->timelines->last->sum_cvw_real_cumulative }}%</td>
+                            <td class="py-2 px-4 border">{{ $data->timelines->last->sum_cvw_real_cumulative ?? 0.00 }}%</td>
                             <td class="py-2 px-4 border">{{ $data->timelines->current->sum_cvw_real }}%</td>
                             <td class="py-2 px-4 border">{{ $data->timelines->current->sum_cvw_real_cumulative }}%</td>
                             <td class="py-2 px-4 border">{{ $data->timelines->current->sum_cvw_deviasi }}%</td>
@@ -170,6 +171,47 @@
                     </tbody>
                 </table>
             </div>
+
+            <div class="overflow-x-auto">
+                <table class="table-auto w-full border-collapse border border-white-200">
+                    <thead class="bg-gray-500 text-white">
+                        <tr>
+                            <th class="text-center py-2 border" colspan="2">Rencana Minggu Depan</th>
+                            <th class="text-center py-2 border">Minggu Ke {{ $data->timelines->next->timeline_week ?? '' }}</th>
+                        </tr>
+                        <tr>
+                            <th class="text-center py-2 border" rowspan="2">Uraian</th>
+                            <th class="text-center py-2 border" colspan="2">Rencana Kontrak</th>
+                        </tr>
+                        <tr>
+                            <th class="text-center py-2 border">Rencana Mingguan</th>
+                            <th class="text-center py-2 border">Rencana Kumulatif</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (!empty($data->timelines->next->cvws))
+                            @foreach ($data->timelines->next->cvws as $index => $cvw)
+                                <tr>
+                                    <td class="py-2 px-4 border">{{ $cvw->location_name }}</td>
+                                    <td class="py-2 px-4 border">{{ $cvw->cvw_plan }}%</td>
+                                    <td class="py-2 px-4 border">{{ $cvw->cvw_plan_cumulative }}%</td>
+                                </tr>
+                            @endforeach
+                            <tr class="font-semibold bg-gray-200">
+                                <td class="py-2 px-4 border">SEMUA LOKASI</td>
+                                <td class="py-2 px-4 border">{{ $data->timelines->next->sum_cvw_plan }}%</td>
+                                <td class="py-2 px-4 border">{{ $data->timelines->next->sum_cvw_plan_cumulative }}%</td>
+                            </tr>
+                        @else
+                            <tr>
+                                <td class="py-2 px-4 border text-center" colspan="3">Data tidak tersedia untuk minggu depan.</td>
+                            </tr>
+                        @endif
+                    </tbody>
+                </table>
+            </div>
+
+
         </div>
 
         <div class="p-6 bg-white shadow rounded-lg">
@@ -232,7 +274,7 @@
     function grafik_1() {
             const ctxBar1 = document.getElementById("ctxBar1").getContext("2d");
             const timelines = @json($data->timelines);
-            const labels = [`Minggu ${timelines.last.timeline_week}`, `Minggu ${timelines.current.timeline_week}`];
+            const labels = [`Minggu ${timelines.last.timeline_week ?? 0}`, `Minggu ${timelines.current.timeline_week}`];
             const planKumulatif = [timelines.last.sum_cvw_plan_cumulative, timelines.current.sum_cvw_plan_cumulative];
             const realKumulatif = [timelines.last.sum_cvw_real_cumulative, timelines.current.sum_cvw_real_cumulative];
 

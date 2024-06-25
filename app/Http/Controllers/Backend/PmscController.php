@@ -19,15 +19,32 @@ class PmscController extends Controller
 
     public function index(Request $request)
     {
-        $query = Pmsc::query();
-        $query->where('project_id', $this->project_id);
-
-        if (!empty($request->date)) {
-            $query->whereDate('pmsc_date', $request->date);
-        }
+        $query = Pmsc::query()
+            ->select([
+                'pmscs.id',
+                'pmscs.project_id',
+                'pmscs.timeline_id',
+                'tmm.timeline_week',
+                'pmscs.pmsc_date',
+                'pmscs.pmsc_location',
+                'pmscs.pmsc_agenda',
+                'pmscs.pmsc_agenda_en'
+            ])
+            ->join('timelines as tmm', function ($join) {
+                $join->on('tmm.id', '=', 'pmscs.timeline_id')
+                     ->whereColumn('tmm.project_id', 'pmscs.project_id')
+                     ->whereNull('tmm.deleted_at');
+            })
+            ->where('pmscs.project_id', $this->project_id)
+            ->whereNull('pmscs.deleted_at');
 
         if (!empty($request->timeline_id)) {
-            $query->where('timeline_id', $request->timeline_id);
+            $query->where(function ($q) use ($request) {
+                $q->where('pmscs.timeline_id', $request->timeline_id)
+                  ->orWhere('tmm.is_active', true);
+            });
+        } else {
+            $query->where('tmm.is_active', true);
         }
 
         $pmscs = $query->with('pmscGallery')->paginate(10);
@@ -39,10 +56,57 @@ class PmscController extends Controller
             ]);
         }
 
-        $timelines = Timeline::whereNull('deleted_at')->where('project_id', $this->project_id)->get();
+        $timelines = Timeline::whereNull('deleted_at')
+                             ->where('project_id', $this->project_id)
+                             ->get();
+
         return view('backend.monitoring.pmsc.index', compact('pmscs', 'timelines'));
     }
+    public function indexxx(Request $request)
+    {
+        $query = Pmsc::query()
+            ->select([
+                'pmscs.id',
+                'pmscs.project_id',
+                'pmscs.timeline_id',
+                'tmm.timeline_week',
+                'pmscs.pmsc_date',
+                'pmscs.pmsc_location',
+                'pmscs.pmsc_agenda',
+                'pmscs.pmsc_agenda_en'
+            ])
+            ->join('timelines as tmm', function ($join) {
+                $join->on('tmm.id', '=', 'pmscs.timeline_id')
+                     ->whereColumn('tmm.project_id', 'pmscs.project_id')
+                     ->whereNull('tmm.deleted_at');
+            })
+            ->where('pmscs.project_id', $this->project_id)
+            ->whereNull('pmscs.deleted_at');
 
+        if (!empty($request->timeline_id)) {
+            $query->where(function ($q) use ($request) {
+                $q->where('pmscs.timeline_id', $request->timeline_id)
+                  ->orWhere('tmm.is_active', true);
+            });
+        } else {
+            $query->where('tmm.is_active', true);
+        }
+
+        $pmscs = $query->with('pmscGallery')->paginate(10);
+
+        if ($request->ajax()) {
+            return response()->json([
+                'pmscs' => view('frontend.pmsc.partials.pmsc_list', compact('pmscs'))->render(),
+                'next_page_url' => $pmscs->nextPageUrl()
+            ]);
+        }
+
+        $timelines = Timeline::whereNull('deleted_at')
+                             ->where('project_id', $this->project_id)
+                             ->get();
+
+        return view('frontend.pmsc.index', compact('pmscs', 'timelines'));
+    }
 
     public function create()
     {

@@ -18,7 +18,6 @@ class Pmsc extends Model
         'pmsc_location',
         'pmsc_agenda',
         'pmsc_agenda_en',
-        'pmsc_week',
     ];
 
 

@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Route;
 // frontend
 Route::prefix('/')->group(function () {
     Route::get('getDataCvw', [FrCvwController::class, 'getData']);
-    Route::get('test', [FrCvwController::class, 'index']);
 
     Route::get('/', function () {
         return view('frontend.home.index');
@@ -25,8 +24,8 @@ Route::prefix('/')->group(function () {
         return 'Contact';
     });
     Route::prefix('monitoring')->group(function () {
-        Route::get('cvw', [MonitoringController::class, 'index'])->name('monitoring.cvw.index');
-        Route::get('pmsc', [MeetingController::class, 'index'])->name('monitoring.pmsc.index');
+        Route::get('cvw', [FrCvwController::class, 'index'])->name('monitoring.cvw.index');
+        Route::get('pmsc', [PmscController::class, 'indexxx'])->name('monitoring.pmsc.indexxx');
     });
 });
 

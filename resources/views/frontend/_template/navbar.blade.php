@@ -8,7 +8,7 @@
                     <button class="text-gray-800 font-semibold">MONITORING</button>
                     <div class="absolute mt-2 w-48 bg-white shadow-lg rounded hidden">
                         <a href="{{ route('monitoring.cvw.index') }}" class="block px-4 py-2 text-gray-800 font-semibold hover:bg-gray-100">CIVIL WORK</a>
-                        <a href="{{ route('monitoring.pmsc.index') }}" class="block px-4 py-2 text-gray-800 font-semibold hover:bg-gray-100">PMSC</a>
+                        <a href="{{ route('monitoring.pmsc.indexxx') }}" class="block px-4 py-2 text-gray-800 font-semibold hover:bg-gray-100">PMSC</a>
                     </div>
                 </div>
                 <a href="/about" class="text-gray-800 font-semibold">ABOUT</a>
@@ -32,7 +32,7 @@
                     <button class="text-gray-800 font-semibold">MONITORING</button>
                     <div class="absolute mt-2 w-48 bg-white shadow-lg rounded hidden">
                         <a href="{{ route('monitoring.cvw.index') }}" class="block px-4 py-2 text-gray-800 font-semibold hover:bg-gray-100">CIVIL WORK</a>
-                        <a href="{{ route('monitoring.pmsc.index') }}" class="block px-4 py-2 text-gray-800 font-semibold hover:bg-gray-100">PMSC</a>
+                        <a href="{{ route('monitoring.pmsc.indexxx') }}" class="block px-4 py-2 text-gray-800 font-semibold hover:bg-gray-100">PMSC</a>
                     </div>
                 </div>
                 <a href="/about" class="text-gray-800 font-semibold">ABOUT</a>
