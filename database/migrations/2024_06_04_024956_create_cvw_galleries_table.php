@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('cvw_galleries', function (Blueprint $table) {
             $table->id();
             $table->foreignId('cvw_id')->index()->constrained();
-            $table->foreignId('location_id')->index()->constrained();
+            $table->foreignId('location_id')->index()->constrained()->nullable();
             $table->text('gallery_image');
             $table->string('gallery_desc');
             $table->timestamps();

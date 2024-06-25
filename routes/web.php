@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Backend\CvwController;
+use App\Http\Controllers\Frontend\CvwController AS FrCvwController;
 use App\Http\Controllers\Backend\LocationController;
 use App\Http\Controllers\Backend\PmscController;
 use App\Http\Controllers\Backend\ProjectController;
@@ -9,43 +10,24 @@ use App\Http\Controllers\MonitoringController;
 use App\Http\Controllers\MeetingController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
-// Route::controller(MonitoringController::class)
-//     ->group(function () {
-//         Route::get('/', 'monitoring')->name('monitoring');
-//     });
-
-// Route::get('/meetings', [MeetingController::class, 'index'])->name('meetings.index');
-// Route::get('/meetings/create', [MeetingController::class, 'create'])->name('meetings.create');
-// Route::post('/store', [MeetingController::class, 'store'])->name('meetings.store');
-// Route::get('/meetings/edit/{meeting}', [MeetingController::class, 'edit'])->name('meetings.edit');
-// Route::put('/meetings/update/{meeting}', [MeetingController::class, 'update'])->name('meetings.update');
-// Route::delete('/meetings/destroy/{meeting}', [MeetingController::class, 'destroy'])->name('meetings.destroy');
-
-
 // frontend
-Route::get('/', function () {
-    return view('frontend.home.index');
-});
-Route::get('about', function () {
-    return 'About';
-});
-Route::get('contact', function () {
-    return 'Contact';
-});
-Route::prefix('monitoring')->group(function () {
-    Route::get('cvw', [MonitoringController::class, 'index'])->name('monitoring.cvw.index');
-    Route::get('pmsc', [MeetingController::class, 'index'])->name('monitoring.pmsc.index');
+Route::prefix('/')->group(function () {
+    Route::get('getDataCvw', [FrCvwController::class, 'getData']);
+    Route::get('test', [FrCvwController::class, 'index']);
+
+    Route::get('/', function () {
+        return view('frontend.home.index');
+    });
+    Route::get('about', function () {
+        return 'About';
+    });
+    Route::get('contact', function () {
+        return 'Contact';
+    });
+    Route::prefix('monitoring')->group(function () {
+        Route::get('cvw', [MonitoringController::class, 'index'])->name('monitoring.cvw.index');
+        Route::get('pmsc', [MeetingController::class, 'index'])->name('monitoring.pmsc.index');
+    });
 });
 
 // backend

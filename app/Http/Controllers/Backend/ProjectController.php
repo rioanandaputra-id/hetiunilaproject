@@ -33,18 +33,15 @@ class ProjectController extends Controller
 
         $project = Project::findOrFail($this->project_id);
 
-        // Handle file upload if needed
         if ($request->hasFile('projectLogo')) {
             $file = $request->file('projectLogo');
             $fileName = time() . '_' . $file->getClientOriginalName();
             $filePath = $file->storeAs('project_logos', $fileName, 'public');
 
-            // Delete old logo if exists
             if ($project->project_logo) {
                 Storage::disk('public')->delete($project->project_logo);
             }
 
-            // Update project with new logo path
             $project->update([
                 'project_name' => $request->projectName,
                 'project_logo' => $filePath,
@@ -54,7 +51,6 @@ class ProjectController extends Controller
                 'project_week' => $request->durationWeeks,
             ]);
         } else {
-            // Update project without changing logo
             $project->update([
                 'project_name' => $request->projectName,
                 'project_start' => $request->startDate,

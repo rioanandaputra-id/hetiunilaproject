@@ -26,7 +26,6 @@ class CvwController extends Controller
         return view('backend.monitoring.cvw.index', compact('timelines'));
     }
 
-
     public function data(Request $request)
     {
         $cvws = \DB::table('cvws as cvw')
@@ -74,8 +73,6 @@ class CvwController extends Controller
             ->toJson();
     }
 
-
-
     public function getDataBefore($timeline_id, $location_id)
     {
         $cvws = Cvw::whereNull('deleted_at')
@@ -107,15 +104,11 @@ class CvwController extends Controller
         ]);
 
         $existingCvw = Cvw::where('timeline_id', $request->timeline_id)
-                            ->where('location_id', $request->location_id)
-                            ->first();
+            ->where('location_id', $request->location_id)
+            ->first();
 
         if ($existingCvw) {
-            return response()->json([
-                'errors' => [
-                    'duplicate' => ['The combination of Minggu Ke and Lokasi already exists.']
-                ]
-            ], 422);
+            return redirect()->route('backend.monitoring.cvw.index')->with('status', 'The combination of Minggu Ke and Lokasi already exists.');
         }
 
         $cvw = Cvw::create([

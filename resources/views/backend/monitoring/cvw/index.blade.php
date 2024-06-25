@@ -10,6 +10,13 @@
             </a>
         </div>
 
+
+        @if (session('status'))
+        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-6" role="alert">
+            <span class="block sm:inline">{{ session('status') }}</span>
+        </div>
+    @endif
+
         <div class="mb-4">
             <label for="timeline_week_filter" class="block text-gray-700">Filter by Minggu</label>
             <select id="timeline_week_filter" class="w-full border border-gray-300 rounded p-2">

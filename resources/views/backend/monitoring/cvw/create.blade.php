@@ -59,7 +59,7 @@
                 });
 
                 myDropzone.on("successmultiple", function(files, response) {
-                    window.location.href = '{{ route('backend.monitoring.cvw.index') }}';
+                    window.location.href = '{{ route("backend.monitoring.pmsc.index") }}';
                 });
 
                 myDropzone.on("errormultiple", function(files, response) {
@@ -85,6 +85,12 @@
                 Kembali
             </a>
         </div>
+
+        @if (session('status'))
+        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-6" role="alert">
+            <span class="block sm:inline">{{ session('status') }}</span>
+        </div>
+    @endif
 
         @if ($errors->has('duplicate'))
             <div class="text-red-500">{{ $errors->first('duplicate') }}</div>
@@ -130,19 +136,19 @@
             </div>
 
             <div class="mb-4">
-                <label for="cvw_real" class="block text-gray-700">Realisasi</label>
-                <input type="number" step="0.01" value="0.00" id="cvw_real" name="cvw_real"
+                <label for="cvw_plan_cumulative" class="block text-gray-700">Rencana Kumulatif</label>
+                <input type="number" step="0.01" value="0.00" id="cvw_plan_cumulative" name="cvw_plan_cumulative"
                     class="w-full border border-gray-300 rounded p-2" required>
-                @error('cvw_real')
+                @error('cvw_plan_cumulative')
                     <span class="text-red-500">{{ $message }}</span>
                 @enderror
             </div>
 
             <div class="mb-4">
-                <label for="cvw_plan_cumulative" class="block text-gray-700">Rencana Kumulatif</label>
-                <input type="number" step="0.01" value="0.00" id="cvw_plan_cumulative" name="cvw_plan_cumulative"
+                <label for="cvw_real" class="block text-gray-700">Realisasi</label>
+                <input type="number" step="0.01" value="0.00" id="cvw_real" name="cvw_real"
                     class="w-full border border-gray-300 rounded p-2" required>
-                @error('cvw_plan_cumulative')
+                @error('cvw_real')
                     <span class="text-red-500">{{ $message }}</span>
                 @enderror
             </div>
