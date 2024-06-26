@@ -1,7 +1,7 @@
     <!-- Header Section -->
     <header class="bg-white shadow text-white shadow-lg sticky top-0 z-50">
         <div class="container mx-auto flex justify-between items-center py-4 px-4">
-            <a href="#hero" class="text-2xl font-bold"> <img src="{{ Storage::url('project_logos/1719297567_Logo-Be-Strong-Unila-2023.png') }}" alt="Logo" class="h-10"></a>
+            <a href="/" class="text-2xl font-bold"> <img src="{{ Storage::url('project_logos/1719297567_Logo-Be-Strong-Unila-2023.png') }}" alt="Logo" class="h-10"></a>
             <nav class="hidden md:flex space-x-8">
                 <a href="/" class="text-gray-800 font-semibold">HOME</a>
                 <div class="relative">
