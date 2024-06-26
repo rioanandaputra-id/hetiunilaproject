@@ -6,6 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HETI - Universitas Lampung</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha384-jLKHWM3rW64W7aGAA2lH6CwoA4H0ivS8Q+OQdL9PRsBLTqkJpL0JY5lZh7MGaT5y" crossorigin="anonymous"> --}}
+    <!-- Slick Carousel CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel/slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel/slick/slick-theme.css"/>
+
+
     <style>
         /* Custom Animations */
         .fade-in {
@@ -136,7 +142,11 @@
     text-align: left;
 }
 
-
+    .slider img {
+        width: 100%;
+        height: 400px; /* Adjust height as needed */
+        object-fit: cover;
+    }
     </style>
 </head>
 
@@ -155,6 +165,7 @@
                         <a href="{{ route('monitoring.pmsc.indexxx') }}" class="block px-4 py-2 text-gray-800 font-semibold hover:bg-gray-100">PMSC</a>
                     </div>
                 </div>
+                <a href="#news-announcements" class="text-gray-800 font-semibold">PUBLICATION</a>
                 <a href="#about" class="text-gray-800 font-semibold">ABOUT</a>
                 <a href="#contact" class="text-gray-800 font-semibold">CONTACT</a>
             </nav>
@@ -179,6 +190,7 @@
                         <a href="{{ route('monitoring.pmsc.indexxx') }}" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">PMSC</a>
                     </div>
                 </div>
+                <a href="#news-announcements" class="text-gray-800 font-semibold">PUBLICATION</a>
                 <a href="#about" class="text-gray-800 font-semibold">ABOUT</a>
                 <a href="#contact" class="text-gray-800 font-semibold">CONTACT</a>
             </nav>
@@ -209,21 +221,52 @@
         <div class="max-w-2xl mx-auto mb-4">
             <p class="text-lg mb-4">Higher Education for Technology and Innovation (HETI) is an integral part of
                 Universitas Lampung, dedicated to advancing technology and fostering innovation in education.</p>
-            <div class="flex justify-center space-x-4">
-                <img src="https://pembaruan.id/wp-content/uploads/2024/03/IMG-20240325-WA0053.jpg" alt="About Us"
-                    class="about-image">
-                <img src="https://potensinews.id/wp-content/uploads/2024/03/Compress_20240325_184222_2055.jpg" alt="About Us"
-                    class="about-image">
-                <img src="https://www.indo-asia.com/wp-content/uploads/2022/01/download-2.jpg" alt="About Us"
-                    class="about-image">
+                <br>
+                <br>
+                <img src="{{ Storage::url('project_logos/struktur.png') }}" alt="About Us" class="w-full h-auto">
             </div>
         </div>
-        <br>
-        <a href="#" class="text-blue-500 hover:underline">Learn More</a>
     </div>
 </section>
 
 
+<!-- Program Section -->
+<section id="program" class="py-16">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold mb-6 text-center">Program</h2>
+        <div class="flex flex-col md:flex-row justify-center items-center space-y-8 md:space-y-0 md:space-x-16">
+            <!-- Left Side: Slider -->
+            <div class="md:w-1/2 px-4">
+                <div class="slider">
+                    <div>
+                        <img src="https://pembaruan.id/wp-content/uploads/2024/03/IMG-20240325-WA0053.jpg" alt="Gambar 1" class="w-full h-auto rounded-lg shadow-lg">
+                    </div>
+                    <div>
+                        <img src="https://potensinews.id/wp-content/uploads/2024/03/Compress_20240325_184222_2055.jpg" alt="Gambar 2" class="w-full h-auto rounded-lg shadow-lg">
+                    </div>
+                    <div>
+                        <img src="https://www.indo-asia.com/wp-content/uploads/2022/01/download-2.jpg" alt="Gambar 3" class="w-full h-auto rounded-lg shadow-lg">
+                    </div>
+                </div>
+            </div>
+            <!-- Right Side: Descriptions -->
+            <div class="md:w-1/2 px-4">
+                <div class="mb-8">
+                    <h3 class="text-2xl font-semibold">Construction of RSPTN</h3>
+                    <p class="mt-4">Providing high-quality healthcare facilities to support medical education and research, improve healthcare services, and serve as a referral center for the region, benefiting both students and the local community.</p>
+                </div>
+                <div class="mb-8">
+                    <h3 class="text-2xl font-semibold">Construction of IRC</h3>
+                    <p class="mt-4">Establishing an international research center to foster innovation, global collaboration, and high-quality scientific publications, enhancing research capabilities and promoting academic excellence.</p>
+                </div>
+                <div class="mb-8">
+                    <h3 class="text-2xl font-semibold">Construction of WWTP</h3>
+                    <p class="mt-4">Treating wastewater to reduce environmental pollution, promote sustainability, and enable the safe reuse of treated water for various purposes, supporting eco-friendly practices and ensuring compliance with regulations.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 
     <!-- Vision & Mission Section -->
@@ -250,7 +293,6 @@
         </div>
     </section>
 
-    <!-- Services Section -->
     <section id="services" class="py-16">
         <div class="container mx-auto text-center px-4">
             <h2 class="text-3xl font-bold mb-6">Our Services</h2>
@@ -278,6 +320,10 @@
         </div>
     </section>
 
+
+
+
+
 <!-- Section Monitoring -->
 <section id="monitoring" class="bg-gray-200 py-8">
     <div class="container mx-auto px-4">
@@ -293,16 +339,16 @@
         <div id="meeting-tab" class="tab-content hidden">
             <!-- Konten Meeting -->
             <div class="meeting-content bg-white p-6 rounded-lg shadow-lg">
-                <p class="mb-2"><strong>Periode:</strong> Minggu 14</p>
-                <p class="mb-2"><strong>Date:</strong> 2024-06-18 03:14:00</p>
-                <p class="mb-2"><strong>Location:</strong> Lorem ipsum dolor sit.</p>
-                <p class="mb-4"><strong>Agenda:</strong> Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                <p class="mb-2"><strong>Periode:</strong> Minggu 16</p>
+                <p class="mb-2"><strong>Date:</strong> 2024-06-18 16:00:00</p>
+                <p class="mb-2"><strong>Location:</strong> Koordinasi Rapat Rutin Minggu Ke 15</p>
+                <p class="mb-4"><strong>Agenda:</strong> Coordination of Regular Meetings Week 15</p>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                     <div>
-                        <img src="https://suneducationgroup.com/wp-content/uploads/2023/01/jason-goodman-Oalh2MojUuk-unsplash-1024x683.jpg.webp" alt="Gambar Rapat 1" class="w-full h-auto rounded-lg shadow-lg">
+                        <img src="https://unilaprojectheti.id/storage/pmsc_galleries/I9hATFT03OYT9DW2XqQ5TDnQbAwKC2r3bt4vT2hl.jpg" alt="Gambar Rapat 1" class="w-full h-auto rounded-lg shadow-lg">
                     </div>
                     <div>
-                        <img src="https://suneducationgroup.com/wp-content/uploads/2023/01/jason-goodman-Oalh2MojUuk-unsplash-1024x683.jpg.webp" alt="Gambar Rapat 2" class="w-full h-auto rounded-lg shadow-lg">
+                        <img src="https://unilaprojectheti.id/storage/pmsc_galleries/EgWS3IGv2KcAPk67dBzwfaASFn6Z5x9QWnYy0Ixa.jpg" alt="Gambar Rapat 2" class="w-full h-auto rounded-lg shadow-lg">
                     </div>
                 </div>
                 <a href="{{ route('monitoring.pmsc.indexxx') }}" class="text-blue-500 hover:underline">Learn More</a>
@@ -312,8 +358,8 @@
         <div id="progress-tab" class="tab-content active">
             <!-- Konten Progress -->
             <div class="progress-content bg-white p-6 rounded-lg shadow-lg">
-                <p class="mb-2"><strong>Periode:</strong> Minggu 14</p>
-                <p class="mb-4"><strong>Date:</strong> 2 Juni 2024 s/d 8 Juni 2024</p>
+                <p class="mb-2"><strong>Periode:</strong> Minggu 16</p>
+                <p class="mb-4"><strong>Date:</strong> 16 Juni 2024 s/d 22 Juni 2024</p>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                     <div class="bg-gray-100 p-4 rounded-lg shadow-inner">
                         <h4 class="text-lg font-bold mb-2">Waktu Kontrak</h4>
@@ -329,13 +375,13 @@
                             <tbody>
                                 <tr>
                                     <td class="border px-4 py-2">540 Hari Kalender</td>
-                                    <td class="border px-4 py-2">100 Hari</td>
-                                    <td class="border px-4 py-2">440 Hari</td>
+                                    <td class="border px-4 py-2">107 Hari</td>
+                                    <td class="border px-4 py-2">443 Hari</td>
                                 </tr>
                                 <tr>
                                     <td class="border px-4 py-2">78 Minggu</td>
-                                    <td class="border px-4 py-2">14 Minggu</td>
-                                    <td class="border px-4 py-2">64 Minggu</td>
+                                    <td class="border px-4 py-2">16 Minggu</td>
+                                    <td class="border px-4 py-2">62 Minggu</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -352,9 +398,9 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td class="border px-4 py-2">1.31%</td>
-                                    <td class="border px-4 py-2">3.71%</td>
-                                    <td class="border px-4 py-2">2.4%</td>
+                                    <td class="border px-4 py-2">1.77%</td>
+                                    <td class="border px-4 py-2">2.22%</td>
+                                    <td class="border px-4 py-2">0.59%</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -367,49 +413,117 @@
 </section>
 
 
-    <!-- News Section -->
-    <section id="news" class="bg-gray-200 py-16">
-        <div class="container mx-auto text-center px-4">
-            <h2 class="text-3xl font-bold mb-6">Latest News</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- News Item -->
-                <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
-                    <img src="https://www.unila.ac.id/wp-content/uploads/2024/06/IMG-20240614-WA0020-324x235.jpg" alt="News Title 1"
-                        class="w-full h-40 object-cover rounded-lg mb-4">
-                    <h3 class="text-2xl font-semibold mb-4">News Title 1</h3>
-                    <p>Brief description of the news. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    <a href="#" class="text-blue-500 hover:underline mt-4 block">Read more</a>
+<!-- News and Announcements Section -->
+<section id="news-announcements" class="bg-gray-200 py-16">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Berita -->
+            <div>
+                <h2 class="text-3xl font-bold mb-6 text-center md:text-left">Latest News</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                    <!-- News Item -->
+                    <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300 flex flex-col">
+                        <img src="https://heti.unila.ac.id/wp-content/uploads/2024/06/WhatsApp-Image-2024-06-05-at-6.46.17-PM-696x393.jpeg" alt="News Title 1" class="w-full h-40 object-cover rounded-lg mb-4">
+                        <h3 class="text-2xl font-semibold mb-4">News Title 1</h3>
+                        <p class="flex-grow">Brief description of the news item 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        <a href="#" class="text-blue-500 hover:underline mt-4">Read more</a>
+                    </div>
+                    <!-- News Item -->
+                    <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300 flex flex-col">
+                        <img src="https://heti.unila.ac.id/wp-content/uploads/2024/03/WhatsApp-Image-2024-02-19-at-09.50.12-696x464.jpeg" alt="News Title 2" class="w-full h-40 object-cover rounded-lg mb-4">
+                        <h3 class="text-2xl font-semibold mb-4">News Title 2</h3>
+                        <p class="flex-grow">Brief description of the news item 2. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        <a href="#" class="text-blue-500 hover:underline mt-4">Read more</a>
+                    </div>
+                    <!-- News Item -->
+                    <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300 flex flex-col">
+                        <img src="https://heti.unila.ac.id/wp-content/uploads/2024/03/IMG-20240302-WA0013-696x522.jpg" alt="News Title 3" class="w-full h-40 object-cover rounded-lg mb-4">
+                        <h3 class="text-2xl font-semibold mb-4">News Title 3</h3>
+                        <p class="flex-grow">Brief description of the news item 3. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        <a href="#" class="text-blue-500 hover:underline mt-4">Read more</a>
+                    </div>
+                    <!-- News Item -->
+                    <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300 flex flex-col">
+                        <img src="https://heti.unila.ac.id/wp-content/uploads/2023/10/JDN07836-1-696x456.jpg" alt="News Title 4" class="w-full h-40 object-cover rounded-lg mb-4">
+                        <h3 class="text-2xl font-semibold mb-4">News Title 4</h3>
+                        <p class="flex-grow">Brief description of the news item 4. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        <a href="#" class="text-blue-500 hover:underline mt-4">Read more</a>
+                    </div>
                 </div>
-                <!-- News Item -->
-                <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
-                    <img src="https://www.unila.ac.id/wp-content/uploads/2024/06/IMG-20240614-WA0007-324x235.jpg" alt="News Title 2"
-                        class="w-full h-40 object-cover rounded-lg mb-4">
-                    <h3 class="text-2xl font-semibold mb-4">News Title 2</h3>
-                    <p>Brief description of the news. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    <a href="#" class="text-blue-500 hover:underline mt-4 block">Read more</a>
-                </div>
-                <!-- News Item -->
-                <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
-                    <img src="https://www.unila.ac.id/wp-content/uploads/2024/06/IMG-20240613-WA0011-324x235.jpg" alt="News Title 3"
-                        class="w-full h-40 object-cover rounded-lg mb-4">
-                    <h3 class="text-2xl font-semibold mb-4">News Title 3</h3>
-                    <p>Brief description of the news. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    <a href="#" class="text-blue-500 hover:underline mt-4 block">Read more</a>
+            </div>
+            <!-- Announcement -->
+            <div>
+                <h2 class="text-3xl font-bold mb-6 text-center md:text-left">Latest Announcement</h2>
+                <div class="grid grid-cols-1 gap-4">
+                    <!-- Announcement Item -->
+                    <div class="bg-white p-4 rounded-lg shadow-lg hover:shadow-xl transition duration-300 flex flex-col">
+                        <h3 class="text-xl font-semibold mb-2">Announcement Title 1</h3>
+                        <p class="text-sm flex-grow">Brief description of the announcement item 1. Lorem ipsum dolor sit amet.</p>
+                        <a href="#" class="text-blue-500 hover:underline mt-2">Read more</a>
+                    </div>
+                    <!-- Announcement Item -->
+                    <div class="bg-white p-4 rounded-lg shadow-lg hover:shadow-xl transition duration-300 flex flex-col">
+                        <h3 class="text-xl font-semibold mb-2">Announcement Title 2</h3>
+                        <p class="text-sm flex-grow">Brief description of the announcement item 2. Lorem ipsum dolor sit amet.</p>
+                        <a href="#" class="text-blue-500 hover:underline mt-2">Read more</a>
+                    </div>
+                    <!-- Announcement Item -->
+                    <div class="bg-white p-4 rounded-lg shadow-lg hover:shadow-xl transition duration-300 flex flex-col">
+                        <h3 class="text-xl font-semibold mb-2">Announcement Title 3</h3>
+                        <p class="text-sm flex-grow">Brief description of the announcement item 3. Lorem ipsum dolor sit amet.</p>
+                        <a href="#" class="text-blue-500 hover:underline mt-2">Read more</a>
+                    </div>
+                    <!-- Announcement Item -->
+                    <div class="bg-white p-4 rounded-lg shadow-lg hover:shadow-xl transition duration-300 flex flex-col">
+                        <h3 class="text-xl font-semibold mb-2">Announcement Title 4</h3>
+                        <p class="text-sm flex-grow">Brief description of the announcement item 4. Lorem ipsum dolor sit amet.</p>
+                        <a href="#" class="text-blue-500 hover:underline mt-2">Read more</a>
+                    </div>
+                    <!-- Announcement Item -->
+                    <div class="bg-white p-4 rounded-lg shadow-lg hover:shadow-xl transition duration-300 flex flex-col">
+                        <h3 class="text-xl font-semibold mb-2">Announcement Title 5</h3>
+                        <p class="text-sm flex-grow">Brief description of the announcement item 5. Lorem ipsum dolor sit amet.</p>
+                        <a href="#" class="text-blue-500 hover:underline mt-2">Read more</a>
+                    </div>
+                    <!-- Announcement Item -->
+                    <div class="bg-white p-4 rounded-lg shadow-lg hover:shadow-xl transition duration-300 flex flex-col">
+                        <h3 class="text-xl font-semibold mb-2">Announcement Title 6</h3>
+                        <p class="text-sm flex-grow">Brief description of the announcement item 6. Lorem ipsum dolor sit amet.</p>
+                        <a href="#" class="text-blue-500 hover:underline mt-2">Read more</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="bg-blue-800 text-white py-16">
-        <div class="container mx-auto text-center px-4">
-            <h2 class="text-3xl font-bold mb-6">Contact Us</h2>
-            <p class="mb-6">Get in touch with us for more information about our programs and services.</p>
-            <p>Email: <a href="mailto:heti@unila.ac.id" class="text-blue-300 hover:underline">heti@unila.ac.id</a></p>
-            <p>Phone: <a href="tel:+62721123456" class="text-blue-300 hover:underline">+62 721 123456</a></p>
-            <p>Address: Universitas Lampung, Jl. Sumantri Brojonegoro No.1, Bandar Lampung, Indonesia</p>
+<!-- Contact Section -->
+<section id="contact" class="bg-blue-800 text-white py-16">
+    <div class="container mx-auto flex flex-wrap items-center justify-between px-4">
+        <!-- Bagian kiri: Peta -->
+        <div class="w-full md:w-1/2 mb-6 md:mb-0">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3972.3076030144216!2d105.2367075749838!3d-5.369971794608866!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e40dbcd47ce7835%3A0x234fee8ad9173d21!2sHETI%20Project%20Office!5e0!3m2!1sid!2sid!4v1719429100360!5m2!1sid!2sid" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
-    </section>
+        <!-- Bagian kanan: Alamat dan Kontak -->
+        <div class="w-full md:w-1/2 text-center md:text-left md:pl-8">
+            <h2 class="text-3xl font-bold mb-4">Contact Us</h2>
+            <p class="mb-6">Get in touch with us for more information about our programs and services.</p>
+            <p class="mb-2"><i class="fas fa-envelope mr-2"></i><strong>Email:</strong> <a href="mailto:pmsc.unilaproject@gmail.com" class="text-blue-300 hover:underline">pmsc.unilaproject@gmail.com</a></p>
+            <p class="mb-2"><i class="fas fa-phone-alt mr-2"></i><strong>Phone:</strong> <a href="https://wa.me/6285954041681" class="text-blue-300 hover:underline">+62 859-5404-1681</a></p>
+            <p class="mb-2"><i class="fas fa-map-marker-alt mr-2"></i><strong>Address:</strong> Universitas Lampung, Jl. Sumantri Brojonegoro No.1, Bandar Lampung, Indonesia</p>
+            <div class="mt-6">
+                <h3 class="text-2xl font-bold mb-4">Follow Us</h3>
+                <div class="flex justify-center md:justify-start space-x-4">
+                    <a href="#" class="text-blue-300 hover:underline"><i class="fas fa-facebook-f"></i></a>
+                    <a href="#" class="text-blue-300 hover:underline"><i class="fas fa-twitter"></i></a>
+                    <a href="#" class="text-blue-300 hover:underline"><i class="fas fa-instagram"></i></a>
+                    <a href="#" class="text-blue-300 hover:underline"><i class="fas fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 
     <!-- Footer Section -->
     <footer class="bg-gray-800 text-white py-6">
@@ -418,6 +532,18 @@
                 reserved.</p>
         </div>
     </footer>
+
+<!-- Load FontAwesome -->
+{{-- <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> --}}
+ <!-- jQuery -->
+ <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+ <!-- Slick Carousel JS -->
+ <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel/slick/slick.min.js"></script>
+
+
+
+
 
     <script>
         // Toggle mobile menu
@@ -442,6 +568,17 @@
             document.getElementById(this.dataset.tab).classList.add('active');
         });
     });
+
+    $('.slider').slick({
+            dots: true,
+            infinite: true,
+            speed: 500,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            adaptiveHeight: true,
+            autoplay: true,
+            autoplaySpeed: 1500
+        });
 
 });
 
